@@ -1,0 +1,18 @@
+[submodule "Library/ZUUIRevealController"]
+	path = Library/ZUUIRevealController
+	url = git://github.com/pkluz/ZUUIRevealController.git
+[submodule "Library/AFNetworking"]
+	path = Library/AFNetworking
+	url = git://github.com/AFNetworking/AFNetworking.git
+[submodule "Library/OPEventTracker"]
+	path = Library/OPEventTracker
+	url = git://github.com/mbrandonw/OPEventTracker.git
+[submodule "Library/MGBox"]
+	path = Library/MGBox
+	url = git://github.com/sobri909/MGBox.git
+[submodule "Library/SVProgressHUD"]
+	path = Library/SVProgressHUD
+	url = git://github.com/samvermette/SVProgressHUD.git
+[submodule "Library/SVWebViewController"]
+	path = Library/SVWebViewController
+	url = git://github.com/samvermette/SVWebViewController.git
