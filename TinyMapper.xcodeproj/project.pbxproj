@@ -1,0 +1,285 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		961A49631590C4B0006A08F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49621590C4B0006A08F2 /* UIKit.framework */; };
+		961A49651590C4B0006A08F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49641590C4B0006A08F2 /* Foundation.framework */; };
+		961A49671590C4B0006A08F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49661590C4B0006A08F2 /* CoreGraphics.framework */; };
+		961A49691590C4B0006A08F2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49681590C4B0006A08F2 /* CoreData.framework */; };
+		961A496F1590C4B0006A08F2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 961A496D1590C4B0006A08F2 /* InfoPlist.strings */; };
+		961A49711590C4B0006A08F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49701590C4B0006A08F2 /* main.m */; };
+		961A49751590C4B0006A08F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49741590C4B0006A08F2 /* AppDelegate.m */; };
+		961A49781590C4B0006A08F2 /* TinyMapper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 961A49761590C4B0006A08F2 /* TinyMapper.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		961A495E1590C4B0006A08F2 /* TinyMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		961A49621590C4B0006A08F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		961A49641590C4B0006A08F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		961A49661590C4B0006A08F2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		961A49681590C4B0006A08F2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		961A496C1590C4B0006A08F2 /* TinyMapper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TinyMapper-Info.plist"; sourceTree = "<group>"; };
+		961A496E1590C4B0006A08F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		961A49701590C4B0006A08F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		961A49721590C4B0006A08F2 /* TinyMapper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinyMapper-Prefix.pch"; sourceTree = "<group>"; };
+		961A49731590C4B0006A08F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		961A49741590C4B0006A08F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		961A49771590C4B0006A08F2 /* TinyMapper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TinyMapper.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		961A495B1590C4B0006A08F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				961A49631590C4B0006A08F2 /* UIKit.framework in Frameworks */,
+				961A49651590C4B0006A08F2 /* Foundation.framework in Frameworks */,
+				961A49671590C4B0006A08F2 /* CoreGraphics.framework in Frameworks */,
+				961A49691590C4B0006A08F2 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		961A49531590C4B0006A08F2 = {
+			isa = PBXGroup;
+			children = (
+				961A496A1590C4B0006A08F2 /* TinyMapper */,
+				961A49611590C4B0006A08F2 /* Frameworks */,
+				961A495F1590C4B0006A08F2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		961A495F1590C4B0006A08F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				961A495E1590C4B0006A08F2 /* TinyMapper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		961A49611590C4B0006A08F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				961A49621590C4B0006A08F2 /* UIKit.framework */,
+				961A49641590C4B0006A08F2 /* Foundation.framework */,
+				961A49661590C4B0006A08F2 /* CoreGraphics.framework */,
+				961A49681590C4B0006A08F2 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		961A496A1590C4B0006A08F2 /* TinyMapper */ = {
+			isa = PBXGroup;
+			children = (
+				961A49731590C4B0006A08F2 /* AppDelegate.h */,
+				961A49741590C4B0006A08F2 /* AppDelegate.m */,
+				961A49761590C4B0006A08F2 /* TinyMapper.xcdatamodeld */,
+				961A496B1590C4B0006A08F2 /* Supporting Files */,
+			);
+			path = TinyMapper;
+			sourceTree = "<group>";
+		};
+		961A496B1590C4B0006A08F2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				961A496C1590C4B0006A08F2 /* TinyMapper-Info.plist */,
+				961A496D1590C4B0006A08F2 /* InfoPlist.strings */,
+				961A49701590C4B0006A08F2 /* main.m */,
+				961A49721590C4B0006A08F2 /* TinyMapper-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		961A495D1590C4B0006A08F2 /* TinyMapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 961A497B1590C4B1006A08F2 /* Build configuration list for PBXNativeTarget "TinyMapper" */;
+			buildPhases = (
+				961A495A1590C4B0006A08F2 /* Sources */,
+				961A495B1590C4B0006A08F2 /* Frameworks */,
+				961A495C1590C4B0006A08F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinyMapper;
+			productName = TinyMapper;
+			productReference = 961A495E1590C4B0006A08F2 /* TinyMapper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		961A49551590C4B0006A08F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "jtg2078@hotmail.com";
+			};
+			buildConfigurationList = 961A49581590C4B0006A08F2 /* Build configuration list for PBXProject "TinyMapper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 961A49531590C4B0006A08F2;
+			productRefGroup = 961A495F1590C4B0006A08F2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				961A495D1590C4B0006A08F2 /* TinyMapper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		961A495C1590C4B0006A08F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				961A496F1590C4B0006A08F2 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		961A495A1590C4B0006A08F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				961A49711590C4B0006A08F2 /* main.m in Sources */,
+				961A49751590C4B0006A08F2 /* AppDelegate.m in Sources */,
+				961A49781590C4B0006A08F2 /* TinyMapper.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		961A496D1590C4B0006A08F2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				961A496E1590C4B0006A08F2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		961A49791590C4B1006A08F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		961A497A1590C4B1006A08F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		961A497C1590C4B1006A08F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TinyMapper/TinyMapper-Prefix.pch";
+				INFOPLIST_FILE = "TinyMapper/TinyMapper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		961A497D1590C4B1006A08F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TinyMapper/TinyMapper-Prefix.pch";
+				INFOPLIST_FILE = "TinyMapper/TinyMapper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		961A49581590C4B0006A08F2 /* Build configuration list for PBXProject "TinyMapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				961A49791590C4B1006A08F2 /* Debug */,
+				961A497A1590C4B1006A08F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		961A497B1590C4B1006A08F2 /* Build configuration list for PBXNativeTarget "TinyMapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				961A497C1590C4B1006A08F2 /* Debug */,
+				961A497D1590C4B1006A08F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		961A49761590C4B0006A08F2 /* TinyMapper.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				961A49771590C4B0006A08F2 /* TinyMapper.xcdatamodel */,
+			);
+			currentVersion = 961A49771590C4B0006A08F2 /* TinyMapper.xcdatamodel */;
+			path = TinyMapper.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 961A49551590C4B0006A08F2 /* Project object */;
+}
