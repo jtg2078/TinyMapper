@@ -10,6 +10,13 @@
 #import "AFOAuth2Client.h"
 #import "AFNetworking.h"
 
+//#import "GData.h"
+
+#import "GTMOAuth2Authentication.h"
+//#import "GDataServiceGoogleDocs.h"
+
+
+
 @implementation APIManager
 
 #pragma mark - define
@@ -20,13 +27,18 @@
 #define GOOGLE_CLIENT_SECRET    @"2hkmbNDVbShCqnKL5BJXlOc8"
 
 #define USER_DEFAULT_AUTH_TOKEN_KEY     @"authTokenKey"
+#define GOOGLE_SCOPE            @"https://docs.google.com/feeds/ https://docs.googleusercontent.com/ https://spreadsheets.google.com/feeds/"
 
 #pragma mark - synthesize
 
 @synthesize oAuthClient;
 @synthesize httpClient;
+@synthesize authObj;
 
-#pragma mark - dealloc
+@synthesize clientID;
+@synthesize clientSecret;
+@synthesize clientScope;
+@synthesize clientKeyChainKey;
 
 #pragma mark - init
 
@@ -39,10 +51,10 @@
         [oAuthClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
         httpClient = [[AFHTTPClient alloc] initWithBaseURL:nil];
         
-        if([self hasAuthToken])
-        {
-            [httpClient setAuthorizationHeaderWithToken:[self loadAuthToken]];
-        }
+        clientID = GOOGLE_CLIENT_ID;
+        clientSecret = GOOGLE_CLIENT_SECRET;
+        clientScope = GOOGLE_SCOPE;
+        clientKeyChainKey = USER_DEFAULT_AUTH_TOKEN_KEY;
     }
     return self;
 }
@@ -75,6 +87,17 @@
     NSString *url = AFQueryStringFromParametersWithEncoding(p, NSUTF8StringEncoding);
     
     return [NSString stringWithFormat:@"%@?%@", OAUTH_URL, url];
+}
+
+- (void)performAuthentication
+{
+    //GTMOAuth2ViewControllerTouch *ga2vc;
+    
+    
+    
+    //AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //[delegate presentModalViewController:ga2vc animated:YES];
+     
 }
 
 

@@ -9,6 +9,11 @@
 #import "MapViewController.h"
 #import "OAuthViewController.h"
 
+#import "GTMOAuth2ViewControllerTouch.h"
+#import "APIManager.h"
+#import "AppDelegate.h"
+
+
 @interface MapViewController () <OAuthViewControllerDelegate>
 
 @end
@@ -46,7 +51,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"OAuth", nil) 
                                                                                   style:UIBarButtonItemStylePlain 
                                                                                  target:self 
-                                                                                 action:@selector(login)];
+                                                                                 action:@selector(loginGData)];
 	}
 }
 
@@ -72,6 +77,37 @@
 	webViewController.modalPresentationStyle = UIModalPresentationPageSheet;
     webViewController.authDelegate = self;
 	[self presentModalViewController:webViewController animated:YES];
+}
+
+
+- (void)loginGData
+{
+    // Do any additional setup after loading the view.
+    
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    APIManager *api = delegate.apiManager;
+    
+    GTMOAuth2ViewControllerTouch *ga2vc = [GTMOAuth2ViewControllerTouch controllerWithScope:api.clientScope 
+                                                                                   clientID:api.clientID 
+                                                                               clientSecret:api.clientSecret 
+                                                                           keychainItemName:api.clientKeyChainKey 
+                                                                          completionHandler:^(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error) {
+                                                                              
+                                                                              if(error == nil)
+                                                                              {
+                                                                                  api.authObj = auth;
+                                                                              }
+                                                                              else
+                                                                              {
+                                                                                  NSLog(@"failed");
+                                                                              }
+                                                                              [delegate dismissModalViewControllerAnimated:YES];
+                                                                              
+                                                                          }];
+    [delegate presentModalViewController:ga2vc animated:YES];
+    
+    
+    
 }
 
 #pragma mark - OAuthViewControllerDelegate

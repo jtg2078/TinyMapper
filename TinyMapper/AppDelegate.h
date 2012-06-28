@@ -21,6 +21,9 @@
 // my addition
 @property (strong, nonatomic) APIManager *apiManager;
 
+- (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated;
+- (void)dismissModalViewControllerAnimated:(BOOL)animated;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
