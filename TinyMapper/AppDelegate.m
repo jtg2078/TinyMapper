@@ -8,6 +8,11 @@
 
 #import "AppDelegate.h"
 
+#import "RootViewController.h"
+#import "LocationViewController.h"
+#import "MapViewController.h"
+#import "APIManager.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -15,10 +20,31 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
+@synthesize apiManager;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    // ---------- my addition ----------
+    apiManager = [[APIManager alloc] init];
+    
+    LocationViewController *lvc = [[LocationViewController alloc] init];
+    lvc.apiManager = apiManager;
+    UINavigationController *nav_lvc = [[UINavigationController alloc] initWithRootViewController:lvc];
+    
+    MapViewController *mvc = [[MapViewController alloc] init];
+    mvc.apiManager = apiManager;
+    UINavigationController *nav_mvc =[[UINavigationController alloc] initWithRootViewController:mvc];
+    
+    RootViewController *rvc = [[RootViewController alloc] initWithFrontViewController:nav_mvc rearViewController:nav_lvc];
+    
+    self.window.rootViewController = rvc;
+    
+    // ----------------------------------------
+    
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

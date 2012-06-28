@@ -32,9 +32,6 @@
 		961A49BE1590D2FE006A08F2 /* MGStyledBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49B91590D2FE006A08F2 /* MGStyledBox.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		961A49C31590D340006A08F2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 961A49C01590D340006A08F2 /* SVProgressHUD.bundle */; };
 		961A49C41590D340006A08F2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49C21590D340006A08F2 /* SVProgressHUD.m */; };
-		961A49CB1590D349006A08F2 /* SVModalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49C71590D349006A08F2 /* SVModalWebViewController.m */; };
-		961A49CC1590D349006A08F2 /* SVWebViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 961A49C81590D349006A08F2 /* SVWebViewController.bundle */; };
-		961A49CD1590D349006A08F2 /* SVWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49CA1590D349006A08F2 /* SVWebViewController.m */; };
 		961A49D21590D35E006A08F2 /* ZUUIRevealController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49D11590D35E006A08F2 /* ZUUIRevealController.m */; };
 		961A49D61590D3A4006A08F2 /* OPEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A49D51590D3A4006A08F2 /* OPEventTracker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		961A49D81590D676006A08F2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49D71590D675006A08F2 /* MessageUI.framework */; };
@@ -42,6 +39,18 @@
 		961A49DC1590D697006A08F2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49DB1590D697006A08F2 /* CoreLocation.framework */; };
 		961A49DE1590D6B4006A08F2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49DD1590D6B4006A08F2 /* MapKit.framework */; };
 		961A49E01590D6BC006A08F2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49DF1590D6BC006A08F2 /* StoreKit.framework */; };
+		9682A50B1598B3E10095F85E /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5081598B3E10095F85E /* AFOAuth2Client.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9682A5161598B7CD0095F85E /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5141598B7CD0095F85E /* LocationViewController.m */; };
+		9682A5171598B7CD0095F85E /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9682A5151598B7CD0095F85E /* LocationViewController.xib */; };
+		9682A51B1598B80E0095F85E /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5191598B80E0095F85E /* MapViewController.m */; };
+		9682A51C1598B80E0095F85E /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9682A51A1598B80E0095F85E /* MapViewController.xib */; };
+		9682A51F1598BA760095F85E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A51E1598BA760095F85E /* RootViewController.m */; };
+		9682A5221598BCAB0095F85E /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5211598BCAB0095F85E /* APIManager.m */; };
+		9682A532159A0F1F0095F85E /* SVModalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A52E159A0F1F0095F85E /* SVModalWebViewController.m */; };
+		9682A533159A0F1F0095F85E /* SVWebViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9682A52F159A0F1F0095F85E /* SVWebViewController.bundle */; };
+		9682A534159A0F1F0095F85E /* SVWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A531159A0F1F0095F85E /* SVWebViewController.m */; };
+		9682A537159A0FEA0095F85E /* OAuthWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A536159A0FEA0095F85E /* OAuthWebViewController.m */; };
+		9682A53A159A139E0095F85E /* OAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A539159A139E0095F85E /* OAuthViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,11 +101,6 @@
 		961A49C01590D340006A08F2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		961A49C11590D340006A08F2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		961A49C21590D340006A08F2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		961A49C61590D349006A08F2 /* SVModalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVModalWebViewController.h; sourceTree = "<group>"; };
-		961A49C71590D349006A08F2 /* SVModalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVModalWebViewController.m; sourceTree = "<group>"; };
-		961A49C81590D349006A08F2 /* SVWebViewController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVWebViewController.bundle; sourceTree = "<group>"; };
-		961A49C91590D349006A08F2 /* SVWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebViewController.h; sourceTree = "<group>"; };
-		961A49CA1590D349006A08F2 /* SVWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebViewController.m; sourceTree = "<group>"; };
 		961A49CF1590D35E006A08F2 /* ZUUIRevealController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZUUIRevealController-Prefix.pch"; sourceTree = "<group>"; };
 		961A49D01590D35E006A08F2 /* ZUUIRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZUUIRevealController.h; sourceTree = "<group>"; };
 		961A49D11590D35E006A08F2 /* ZUUIRevealController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZUUIRevealController.m; sourceTree = "<group>"; };
@@ -107,6 +111,27 @@
 		961A49DB1590D697006A08F2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		961A49DD1590D6B4006A08F2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		961A49DF1590D6BC006A08F2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		9682A5071598B3E10095F85E /* AFOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Client.h; sourceTree = "<group>"; };
+		9682A5081598B3E10095F85E /* AFOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Client.m; sourceTree = "<group>"; };
+		9682A5131598B7CD0095F85E /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		9682A5141598B7CD0095F85E /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		9682A5151598B7CD0095F85E /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
+		9682A5181598B80E0095F85E /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		9682A5191598B80E0095F85E /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		9682A51A1598B80E0095F85E /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		9682A51D1598BA760095F85E /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		9682A51E1598BA760095F85E /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		9682A5201598BCAB0095F85E /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIManager.h; path = Manager/APIManager.h; sourceTree = "<group>"; };
+		9682A5211598BCAB0095F85E /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIManager.m; path = Manager/APIManager.m; sourceTree = "<group>"; };
+		9682A52D159A0F1F0095F85E /* SVModalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVModalWebViewController.h; sourceTree = "<group>"; };
+		9682A52E159A0F1F0095F85E /* SVModalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVModalWebViewController.m; sourceTree = "<group>"; };
+		9682A52F159A0F1F0095F85E /* SVWebViewController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVWebViewController.bundle; sourceTree = "<group>"; };
+		9682A530159A0F1F0095F85E /* SVWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebViewController.h; sourceTree = "<group>"; };
+		9682A531159A0F1F0095F85E /* SVWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebViewController.m; sourceTree = "<group>"; };
+		9682A535159A0FEA0095F85E /* OAuthWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthWebViewController.h; sourceTree = "<group>"; };
+		9682A536159A0FEA0095F85E /* OAuthWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthWebViewController.m; sourceTree = "<group>"; };
+		9682A538159A139E0095F85E /* OAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthViewController.h; sourceTree = "<group>"; };
+		9682A539159A139E0095F85E /* OAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +197,18 @@
 				961A49741590C4B0006A08F2 /* AppDelegate.m */,
 				961A49761590C4B0006A08F2 /* TinyMapper.xcdatamodeld */,
 				961A496B1590C4B0006A08F2 /* Supporting Files */,
+				9682A51D1598BA760095F85E /* RootViewController.h */,
+				9682A51E1598BA760095F85E /* RootViewController.m */,
+				9682A5131598B7CD0095F85E /* LocationViewController.h */,
+				9682A5141598B7CD0095F85E /* LocationViewController.m */,
+				9682A5151598B7CD0095F85E /* LocationViewController.xib */,
+				9682A5181598B80E0095F85E /* MapViewController.h */,
+				9682A5191598B80E0095F85E /* MapViewController.m */,
+				9682A51A1598B80E0095F85E /* MapViewController.xib */,
+				9682A535159A0FEA0095F85E /* OAuthWebViewController.h */,
+				9682A536159A0FEA0095F85E /* OAuthWebViewController.m */,
+				9682A538159A139E0095F85E /* OAuthViewController.h */,
+				9682A539159A139E0095F85E /* OAuthViewController.m */,
 			);
 			path = TinyMapper;
 			sourceTree = "<group>";
@@ -219,9 +256,10 @@
 		961A49AB1590D2C0006A08F2 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				9682A52C159A0F1F0095F85E /* SVWebViewController My Addition */,
+				9682A5061598B3E10095F85E /* AFOAuth2Client */,
 				961A49D31590D395006A08F2 /* OPEventTracker */,
 				961A49CE1590D35E006A08F2 /* ZUUIRevealController */,
-				961A49C51590D349006A08F2 /* SVWebViewController */,
 				961A49BF1590D340006A08F2 /* SVProgressHUD */,
 				961A49AE1590D2FE006A08F2 /* MGBox */,
 				961A498A1590D2BA006A08F2 /* AFNetworking */,
@@ -239,6 +277,8 @@
 		961A49AD1590D2D5006A08F2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				9682A5201598BCAB0095F85E /* APIManager.h */,
+				9682A5211598BCAB0095F85E /* APIManager.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -273,19 +313,6 @@
 			path = Library/SVProgressHUD/SVProgressHUD;
 			sourceTree = "<group>";
 		};
-		961A49C51590D349006A08F2 /* SVWebViewController */ = {
-			isa = PBXGroup;
-			children = (
-				961A49C61590D349006A08F2 /* SVModalWebViewController.h */,
-				961A49C71590D349006A08F2 /* SVModalWebViewController.m */,
-				961A49C81590D349006A08F2 /* SVWebViewController.bundle */,
-				961A49C91590D349006A08F2 /* SVWebViewController.h */,
-				961A49CA1590D349006A08F2 /* SVWebViewController.m */,
-			);
-			name = SVWebViewController;
-			path = Library/SVWebViewController/SVWebViewController;
-			sourceTree = "<group>";
-		};
 		961A49CE1590D35E006A08F2 /* ZUUIRevealController */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +331,29 @@
 				961A49D51590D3A4006A08F2 /* OPEventTracker.m */,
 			);
 			name = OPEventTracker;
+			sourceTree = "<group>";
+		};
+		9682A5061598B3E10095F85E /* AFOAuth2Client */ = {
+			isa = PBXGroup;
+			children = (
+				9682A5071598B3E10095F85E /* AFOAuth2Client.h */,
+				9682A5081598B3E10095F85E /* AFOAuth2Client.m */,
+			);
+			name = AFOAuth2Client;
+			path = Library/AFOAuth2Client;
+			sourceTree = "<group>";
+		};
+		9682A52C159A0F1F0095F85E /* SVWebViewController My Addition */ = {
+			isa = PBXGroup;
+			children = (
+				9682A52D159A0F1F0095F85E /* SVModalWebViewController.h */,
+				9682A52E159A0F1F0095F85E /* SVModalWebViewController.m */,
+				9682A52F159A0F1F0095F85E /* SVWebViewController.bundle */,
+				9682A530159A0F1F0095F85E /* SVWebViewController.h */,
+				9682A531159A0F1F0095F85E /* SVWebViewController.m */,
+			);
+			name = "SVWebViewController My Addition";
+			path = "Library/SVWebViewController My Addition";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,7 +409,9 @@
 			files = (
 				961A496F1590C4B0006A08F2 /* InfoPlist.strings in Resources */,
 				961A49C31590D340006A08F2 /* SVProgressHUD.bundle in Resources */,
-				961A49CC1590D349006A08F2 /* SVWebViewController.bundle in Resources */,
+				9682A5171598B7CD0095F85E /* LocationViewController.xib in Resources */,
+				9682A51C1598B80E0095F85E /* MapViewController.xib in Resources */,
+				9682A533159A0F1F0095F85E /* SVWebViewController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,10 +441,17 @@
 				961A49BD1590D2FE006A08F2 /* MGScrollView.m in Sources */,
 				961A49BE1590D2FE006A08F2 /* MGStyledBox.m in Sources */,
 				961A49C41590D340006A08F2 /* SVProgressHUD.m in Sources */,
-				961A49CB1590D349006A08F2 /* SVModalWebViewController.m in Sources */,
-				961A49CD1590D349006A08F2 /* SVWebViewController.m in Sources */,
 				961A49D21590D35E006A08F2 /* ZUUIRevealController.m in Sources */,
 				961A49D61590D3A4006A08F2 /* OPEventTracker.m in Sources */,
+				9682A50B1598B3E10095F85E /* AFOAuth2Client.m in Sources */,
+				9682A5161598B7CD0095F85E /* LocationViewController.m in Sources */,
+				9682A51B1598B80E0095F85E /* MapViewController.m in Sources */,
+				9682A51F1598BA760095F85E /* RootViewController.m in Sources */,
+				9682A5221598BCAB0095F85E /* APIManager.m in Sources */,
+				9682A532159A0F1F0095F85E /* SVModalWebViewController.m in Sources */,
+				9682A534159A0F1F0095F85E /* SVWebViewController.m in Sources */,
+				9682A537159A0FEA0095F85E /* OAuthWebViewController.m in Sources */,
+				9682A53A159A139E0095F85E /* OAuthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

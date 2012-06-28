@@ -16,3 +16,6 @@
 [submodule "Library/SVWebViewController"]
 	path = Library/SVWebViewController
 	url = git://github.com/samvermette/SVWebViewController.git
+[submodule "Library/AFOAuth2Client"]
+	path = Library/AFOAuth2Client
+	url = git://github.com/AFNetworking/AFOAuth2Client.git
