@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "GData.h"
 
 @class AFHTTPClient;
 @class AFOAuth2Client;
@@ -19,6 +19,8 @@
 
 @property (strong, nonatomic) AFOAuth2Client    * oAuthClient;
 @property (strong, nonatomic) AFHTTPClient      * httpClient;
+
+@property (strong, nonatomic) GDataServiceGoogleSpreadsheet *spreadSheetService;
 
 @property (strong, nonatomic, readonly) NSString * clientID;
 @property (strong, nonatomic, readonly) NSString * clientSecret;

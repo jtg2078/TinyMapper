@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class RootViewController;
+@class MapViewController;
+@class ListsViewController;
 @class APIManager;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -20,6 +22,9 @@
 
 // my addition
 @property (strong, nonatomic) APIManager *apiManager;
+@property (strong, nonatomic) MapViewController *mapViewController;
+@property (strong, nonatomic) ListsViewController *listsViewController;
+@property (strong, nonatomic) RootViewController *rootViewController;
 
 - (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated;
 - (void)dismissModalViewControllerAnimated:(BOOL)animated;

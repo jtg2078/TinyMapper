@@ -44,8 +44,8 @@
 		96208980159CC2830074436F /* libGDataTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96208977159CC2600074436F /* libGDataTouchStaticLib.a */; };
 		96208986159CC86A0074436F /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96208984159CC86A0074436F /* GTMOAuth2ViewTouch.xib */; };
 		9682A50B1598B3E10095F85E /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5081598B3E10095F85E /* AFOAuth2Client.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9682A5161598B7CD0095F85E /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5141598B7CD0095F85E /* LocationViewController.m */; };
-		9682A5171598B7CD0095F85E /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9682A5151598B7CD0095F85E /* LocationViewController.xib */; };
+		9682A5161598B7CD0095F85E /* ListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5141598B7CD0095F85E /* ListsViewController.m */; };
+		9682A5171598B7CD0095F85E /* ListsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9682A5151598B7CD0095F85E /* ListsViewController.xib */; };
 		9682A51B1598B80E0095F85E /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A5191598B80E0095F85E /* MapViewController.m */; };
 		9682A51C1598B80E0095F85E /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9682A51A1598B80E0095F85E /* MapViewController.xib */; };
 		9682A51F1598BA760095F85E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A51E1598BA760095F85E /* RootViewController.m */; };
@@ -55,6 +55,10 @@
 		9682A534159A0F1F0095F85E /* SVWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A531159A0F1F0095F85E /* SVWebViewController.m */; };
 		9682A537159A0FEA0095F85E /* OAuthWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A536159A0FEA0095F85E /* OAuthWebViewController.m */; };
 		9682A53A159A139E0095F85E /* OAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682A539159A139E0095F85E /* OAuthViewController.m */; };
+		96FDFFC5159EB37600C82D24 /* LocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FDFFC3159EB37600C82D24 /* LocationsViewController.m */; };
+		96FDFFC6159EB37600C82D24 /* LocationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FDFFC4159EB37600C82D24 /* LocationsViewController.xib */; };
+		96FDFFCD159EE13600C82D24 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FDFFCC159EE13600C82D24 /* MKMapView+ZoomLevel.m */; };
+		96FDFFD0159EE22600C82D24 /* LocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FDFFCF159EE22600C82D24 /* LocationAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -483,9 +487,9 @@
 		96208984159CC86A0074436F /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Library/gdata-objectivec-client-read-only/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		9682A5071598B3E10095F85E /* AFOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Client.h; sourceTree = "<group>"; };
 		9682A5081598B3E10095F85E /* AFOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Client.m; sourceTree = "<group>"; };
-		9682A5131598B7CD0095F85E /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
-		9682A5141598B7CD0095F85E /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
-		9682A5151598B7CD0095F85E /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
+		9682A5131598B7CD0095F85E /* ListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListsViewController.h; sourceTree = "<group>"; };
+		9682A5141598B7CD0095F85E /* ListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListsViewController.m; sourceTree = "<group>"; };
+		9682A5151598B7CD0095F85E /* ListsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListsViewController.xib; sourceTree = "<group>"; };
 		9682A5181598B80E0095F85E /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9682A5191598B80E0095F85E /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		9682A51A1598B80E0095F85E /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
@@ -502,6 +506,13 @@
 		9682A536159A0FEA0095F85E /* OAuthWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthWebViewController.m; sourceTree = "<group>"; };
 		9682A538159A139E0095F85E /* OAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthViewController.h; sourceTree = "<group>"; };
 		9682A539159A139E0095F85E /* OAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthViewController.m; sourceTree = "<group>"; };
+		96FDFFC2159EB37600C82D24 /* LocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsViewController.h; sourceTree = "<group>"; };
+		96FDFFC3159EB37600C82D24 /* LocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsViewController.m; sourceTree = "<group>"; };
+		96FDFFC4159EB37600C82D24 /* LocationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationsViewController.xib; sourceTree = "<group>"; };
+		96FDFFCB159EE13600C82D24 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKMapView+ZoomLevel.h"; path = "Library/Helper/MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		96FDFFCC159EE13600C82D24 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKMapView+ZoomLevel.m"; path = "Library/Helper/MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		96FDFFCE159EE22600C82D24 /* LocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationAnnotation.h; sourceTree = "<group>"; };
+		96FDFFCF159EE22600C82D24 /* LocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -575,9 +586,12 @@
 				961A496B1590C4B0006A08F2 /* Supporting Files */,
 				9682A51D1598BA760095F85E /* RootViewController.h */,
 				9682A51E1598BA760095F85E /* RootViewController.m */,
-				9682A5131598B7CD0095F85E /* LocationViewController.h */,
-				9682A5141598B7CD0095F85E /* LocationViewController.m */,
-				9682A5151598B7CD0095F85E /* LocationViewController.xib */,
+				9682A5131598B7CD0095F85E /* ListsViewController.h */,
+				9682A5141598B7CD0095F85E /* ListsViewController.m */,
+				9682A5151598B7CD0095F85E /* ListsViewController.xib */,
+				96FDFFC2159EB37600C82D24 /* LocationsViewController.h */,
+				96FDFFC3159EB37600C82D24 /* LocationsViewController.m */,
+				96FDFFC4159EB37600C82D24 /* LocationsViewController.xib */,
 				9682A5181598B80E0095F85E /* MapViewController.h */,
 				9682A5191598B80E0095F85E /* MapViewController.m */,
 				9682A51A1598B80E0095F85E /* MapViewController.xib */,
@@ -585,6 +599,8 @@
 				9682A536159A0FEA0095F85E /* OAuthWebViewController.m */,
 				9682A538159A139E0095F85E /* OAuthViewController.h */,
 				9682A539159A139E0095F85E /* OAuthViewController.m */,
+				96FDFFCE159EE22600C82D24 /* LocationAnnotation.h */,
+				96FDFFCF159EE22600C82D24 /* LocationAnnotation.m */,
 			);
 			path = TinyMapper;
 			sourceTree = "<group>";
@@ -632,6 +648,7 @@
 		961A49AB1590D2C0006A08F2 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				96FDFFCA159EE11100C82D24 /* Helper */,
 				962087DB159CA2B20074436F /* GData */,
 				9682A52C159A0F1F0095F85E /* SVWebViewController My Addition */,
 				9682A5061598B3E10095F85E /* AFOAuth2Client */,
@@ -1079,6 +1096,15 @@
 			path = "Library/SVWebViewController My Addition";
 			sourceTree = "<group>";
 		};
+		96FDFFCA159EE11100C82D24 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				96FDFFCB159EE13600C82D24 /* MKMapView+ZoomLevel.h */,
+				96FDFFCC159EE13600C82D24 /* MKMapView+ZoomLevel.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1177,10 +1203,11 @@
 			files = (
 				961A496F1590C4B0006A08F2 /* InfoPlist.strings in Resources */,
 				961A49C31590D340006A08F2 /* SVProgressHUD.bundle in Resources */,
-				9682A5171598B7CD0095F85E /* LocationViewController.xib in Resources */,
+				9682A5171598B7CD0095F85E /* ListsViewController.xib in Resources */,
 				9682A51C1598B80E0095F85E /* MapViewController.xib in Resources */,
 				9682A533159A0F1F0095F85E /* SVWebViewController.bundle in Resources */,
 				96208986159CC86A0074436F /* GTMOAuth2ViewTouch.xib in Resources */,
+				96FDFFC6159EB37600C82D24 /* LocationsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1213,7 +1240,7 @@
 				961A49D21590D35E006A08F2 /* ZUUIRevealController.m in Sources */,
 				961A49D61590D3A4006A08F2 /* OPEventTracker.m in Sources */,
 				9682A50B1598B3E10095F85E /* AFOAuth2Client.m in Sources */,
-				9682A5161598B7CD0095F85E /* LocationViewController.m in Sources */,
+				9682A5161598B7CD0095F85E /* ListsViewController.m in Sources */,
 				9682A51B1598B80E0095F85E /* MapViewController.m in Sources */,
 				9682A51F1598BA760095F85E /* RootViewController.m in Sources */,
 				9682A5221598BCAB0095F85E /* APIManager.m in Sources */,
@@ -1221,6 +1248,9 @@
 				9682A534159A0F1F0095F85E /* SVWebViewController.m in Sources */,
 				9682A537159A0FEA0095F85E /* OAuthWebViewController.m in Sources */,
 				9682A53A159A139E0095F85E /* OAuthViewController.m in Sources */,
+				96FDFFC5159EB37600C82D24 /* LocationsViewController.m in Sources */,
+				96FDFFCD159EE13600C82D24 /* MKMapView+ZoomLevel.m in Sources */,
+				96FDFFD0159EE22600C82D24 /* LocationAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

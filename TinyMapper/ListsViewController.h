@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "APIManager.h"
+#import "GData.h"
 
-@interface LocationViewController : UITableViewController
+@interface ListsViewController : UITableViewController
 {
     
 }
 
 @property (strong, nonatomic) APIManager *apiManager;
+@property (strong, nonatomic) GDataServiceGoogleSpreadsheet *spreadSheetService;
+@property (strong, nonatomic) GDataFeedSpreadsheet *spreadSheetFeed;
 
 @end

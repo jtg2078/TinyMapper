@@ -10,9 +10,9 @@
 #import "AFOAuth2Client.h"
 #import "AFNetworking.h"
 
-//#import "GData.h"
-
 #import "GTMOAuth2Authentication.h"
+#import "GTMOAuth2ViewControllerTouch.h"
+#import "AppDelegate.h"
 //#import "GDataServiceGoogleDocs.h"
 
 
@@ -39,6 +39,7 @@
 @synthesize clientSecret;
 @synthesize clientScope;
 @synthesize clientKeyChainKey;
+@synthesize spreadSheetService;
 
 #pragma mark - init
 
@@ -60,7 +61,6 @@
 }
 
 #pragma mark - main methods
-
 
 - (void)test
 {
@@ -91,13 +91,52 @@
 
 - (void)performAuthentication
 {
-    //GTMOAuth2ViewControllerTouch *ga2vc;
+    // Do any additional setup after loading the view.
     
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    
-    //AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    //[delegate presentModalViewController:ga2vc animated:YES];
+    GTMOAuth2ViewControllerTouch *ga2vc = [GTMOAuth2ViewControllerTouch controllerWithScope:self.clientScope 
+                                                                                   clientID:self.clientID 
+                                                                               clientSecret:self.clientSecret 
+                                                                           keychainItemName:self.clientKeyChainKey 
+                                                                          completionHandler:^(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error) {
+                                                                              
+                                                                              if(error == nil)
+                                                                              {
+                                                                                  self.authObj = auth;
+                                                                              }
+                                                                              else
+                                                                              {
+                                                                                  NSLog(@"failed");
+                                                                              }
+                                                                              [delegate dismissModalViewControllerAnimated:YES];
+                                                                              
+                                                                          }];
+    [delegate presentModalViewController:ga2vc animated:YES];
      
+}
+
+- (void)testGoogleDoc
+{
+     if(self.spreadSheetService == nil)
+     {
+         spreadSheetService = [[GDataServiceGoogleSpreadsheet alloc] init];
+         
+         [self.spreadSheetService setShouldCacheResponseData:YES];
+         [self.spreadSheetService setServiceShouldFollowNextLinks:YES];
+         
+         // username/password may change
+         NSString *username = @"jtg2078@gmail.com";
+         NSString *password = @"jthegreat";
+         
+         [self.spreadSheetService setUserCredentialsWithUsername:username
+                                                        password:password];
+     }
+    
+    NSURL *feedURL = [NSURL URLWithString:kGDataGoogleSpreadsheetsPrivateFullFeed];
+    [self.spreadSheetService fetchFeedWithURL:feedURL completionHandler:^(GDataServiceTicket *ticket, GDataFeedBase *feed, NSError *error) {
+        
+    }];
 }
 
 

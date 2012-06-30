@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
-#import "LocationViewController.h"
+#import "ListsViewController.h"
 #import "MapViewController.h"
 #import "APIManager.h"
 
@@ -21,6 +21,9 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 @synthesize apiManager;
+@synthesize mapViewController;
+@synthesize listsViewController;
+@synthesize rootViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,17 +33,17 @@
     // ---------- my addition ----------
     apiManager = [[APIManager alloc] init];
     
-    LocationViewController *lvc = [[LocationViewController alloc] init];
-    lvc.apiManager = apiManager;
-    UINavigationController *nav_lvc = [[UINavigationController alloc] initWithRootViewController:lvc];
+    listsViewController = [[ListsViewController alloc] init];
+    listsViewController.apiManager = apiManager;
+    UINavigationController *nav_lvc = [[UINavigationController alloc] initWithRootViewController:listsViewController];
     
-    MapViewController *mvc = [[MapViewController alloc] init];
-    mvc.apiManager = apiManager;
-    UINavigationController *nav_mvc =[[UINavigationController alloc] initWithRootViewController:mvc];
+    mapViewController = [[MapViewController alloc] init];
+    mapViewController.apiManager = apiManager;
+    UINavigationController *nav_mvc =[[UINavigationController alloc] initWithRootViewController:mapViewController];
     
-    RootViewController *rvc = [[RootViewController alloc] initWithFrontViewController:nav_mvc rearViewController:nav_lvc];
+    rootViewController = [[RootViewController alloc] initWithFrontViewController:nav_mvc rearViewController:nav_lvc];
     
-    self.window.rootViewController = rvc;
+    self.window.rootViewController = rootViewController;
     
     // ----------------------------------------
     
