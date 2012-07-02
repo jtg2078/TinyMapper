@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "GData.h"
+#import "AppManager.h"
 
 @interface LocationsViewController : UITableViewController
 {
@@ -19,5 +20,9 @@
 @property (nonatomic, strong) GDataEntrySpreadsheet *spreadsheet;
 @property (nonatomic, strong) GDataFeedBase *mEntryFeed;
 @property (nonatomic, strong) CLGeocoder *gencoder;
+
+
+@property (nonatomic, weak) AppManager *manager;
+@property (nonatomic, strong) NSArray *array;
 
 @end

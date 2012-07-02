@@ -11,6 +11,7 @@
 @class RootViewController;
 @class MapViewController;
 @class ListsViewController;
+@class LocationsViewController;
 @class APIManager;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) MapViewController *mapViewController;
 @property (strong, nonatomic) ListsViewController *listsViewController;
 @property (strong, nonatomic) RootViewController *rootViewController;
+@property (strong, nonatomic) LocationsViewController *locationsViewController;
 
 - (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated;
 - (void)dismissModalViewControllerAnimated:(BOOL)animated;

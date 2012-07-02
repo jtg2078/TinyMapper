@@ -11,6 +11,7 @@
 #import "RootViewController.h"
 #import "ListsViewController.h"
 #import "MapViewController.h"
+#import "LocationsViewController.h"
 #import "APIManager.h"
 
 @implementation AppDelegate
@@ -24,6 +25,7 @@
 @synthesize mapViewController;
 @synthesize listsViewController;
 @synthesize rootViewController;
+@synthesize locationsViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -33,9 +35,13 @@
     // ---------- my addition ----------
     apiManager = [[APIManager alloc] init];
     
+    /*
     listsViewController = [[ListsViewController alloc] init];
     listsViewController.apiManager = apiManager;
     UINavigationController *nav_lvc = [[UINavigationController alloc] initWithRootViewController:listsViewController];
+     */
+    locationsViewController = [[LocationsViewController alloc] init];
+    UINavigationController *nav_lvc = [[UINavigationController alloc] initWithRootViewController:locationsViewController];
     
     mapViewController = [[MapViewController alloc] init];
     mapViewController.apiManager = apiManager;

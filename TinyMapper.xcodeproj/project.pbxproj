@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960C1D5A15A1DD7200F93929 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C1D5915A1DD7200F93929 /* AppManager.m */; };
+		960C1D6A15A1F4AD00F93929 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C1D6915A1F4AD00F93929 /* Entry.m */; };
 		961A49631590C4B0006A08F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49621590C4B0006A08F2 /* UIKit.framework */; };
 		961A49651590C4B0006A08F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49641590C4B0006A08F2 /* Foundation.framework */; };
 		961A49671590C4B0006A08F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A49661590C4B0006A08F2 /* CoreGraphics.framework */; };
@@ -107,6 +109,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		960C1D5815A1DD7200F93929 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppManager.h; path = Manager/AppManager.h; sourceTree = "<group>"; };
+		960C1D5915A1DD7200F93929 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppManager.m; path = Manager/AppManager.m; sourceTree = "<group>"; };
+		960C1D6815A1F4AD00F93929 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = Persistence/Entry.h; sourceTree = "<group>"; };
+		960C1D6915A1F4AD00F93929 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entry.m; path = Persistence/Entry.m; sourceTree = "<group>"; };
 		961A495E1590C4B0006A08F2 /* TinyMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A49621590C4B0006A08F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		961A49641590C4B0006A08F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -538,6 +544,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960C1D6715A1F45F00F93929 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				960C1D6815A1F4AD00F93929 /* Entry.h */,
+				960C1D6915A1F4AD00F93929 /* Entry.m */,
+			);
+			name = Persistence;
+			sourceTree = "<group>";
+		};
 		961A49531590C4B0006A08F2 = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +560,7 @@
 				961A49AC1590D2CD006A08F2 /* Asset */,
 				961A49AB1590D2C0006A08F2 /* Library */,
 				961A49AD1590D2D5006A08F2 /* Manager */,
+				960C1D6715A1F45F00F93929 /* Persistence */,
 				961A496A1590C4B0006A08F2 /* TinyMapper */,
 				961A49611590C4B0006A08F2 /* Frameworks */,
 				961A495F1590C4B0006A08F2 /* Products */,
@@ -673,6 +689,8 @@
 			children = (
 				9682A5201598BCAB0095F85E /* APIManager.h */,
 				9682A5211598BCAB0095F85E /* APIManager.m */,
+				960C1D5815A1DD7200F93929 /* AppManager.h */,
+				960C1D5915A1DD7200F93929 /* AppManager.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -1251,6 +1269,8 @@
 				96FDFFC5159EB37600C82D24 /* LocationsViewController.m in Sources */,
 				96FDFFCD159EE13600C82D24 /* MKMapView+ZoomLevel.m in Sources */,
 				96FDFFD0159EE22600C82D24 /* LocationAnnotation.m in Sources */,
+				960C1D5A15A1DD7200F93929 /* AppManager.m in Sources */,
+				960C1D6A15A1F4AD00F93929 /* Entry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

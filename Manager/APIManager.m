@@ -39,7 +39,7 @@
 @synthesize clientSecret;
 @synthesize clientScope;
 @synthesize clientKeyChainKey;
-@synthesize spreadSheetService;
+@synthesize spreadsheetService;
 
 #pragma mark - init
 
@@ -118,23 +118,23 @@
 
 - (void)testGoogleDoc
 {
-     if(self.spreadSheetService == nil)
+     if(self.spreadsheetService == nil)
      {
-         spreadSheetService = [[GDataServiceGoogleSpreadsheet alloc] init];
+         spreadsheetService = [[GDataServiceGoogleSpreadsheet alloc] init];
          
-         [self.spreadSheetService setShouldCacheResponseData:YES];
-         [self.spreadSheetService setServiceShouldFollowNextLinks:YES];
+         [self.spreadsheetService setShouldCacheResponseData:YES];
+         [self.spreadsheetService setServiceShouldFollowNextLinks:YES];
          
          // username/password may change
          NSString *username = @"jtg2078@gmail.com";
          NSString *password = @"jthegreat";
          
-         [self.spreadSheetService setUserCredentialsWithUsername:username
+         [self.spreadsheetService setUserCredentialsWithUsername:username
                                                         password:password];
      }
     
     NSURL *feedURL = [NSURL URLWithString:kGDataGoogleSpreadsheetsPrivateFullFeed];
-    [self.spreadSheetService fetchFeedWithURL:feedURL completionHandler:^(GDataServiceTicket *ticket, GDataFeedBase *feed, NSError *error) {
+    [self.spreadsheetService fetchFeedWithURL:feedURL completionHandler:^(GDataServiceTicket *ticket, GDataFeedBase *feed, NSError *error) {
         
     }];
 }

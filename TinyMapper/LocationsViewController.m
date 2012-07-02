@@ -24,6 +24,9 @@
 @synthesize mEntryFeed;
 @synthesize gencoder;
 
+@synthesize manager;
+@synthesize array;
+
 #pragma mark - init
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -49,6 +52,18 @@
     
     gencoder = [[CLGeocoder alloc] init];
     
+    manager = [AppManager sharedInstance];
+    
+    [SVProgressHUD show];
+    [manager updateSuccess:^(NSString *message, NSArray *results) {
+        self.array = results;
+        [self.tableView reloadData];
+        [SVProgressHUD showSuccessWithStatus:message];
+    } failure:^(NSString *message, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:message];
+    }];
+    
+    /*
     if(self.spreadsheet)
     {
         NSURL *feedURL = [self.spreadsheet worksheetsFeedURL];
@@ -81,6 +96,7 @@
             }];
         }
     }
+     */
 }
 
 - (void)viewDidUnload
@@ -99,13 +115,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.array.count;
+    //return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    Entry *e = [[self.array objectAtIndex:section] lastObject];
+    return e.type;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int rows = self.mEntryFeed.entries.count;
+    int rows = [[self.array objectAtIndex:section] count];
     return rows;
+    
+    //int rows = self.mEntryFeed.entries.count;
+    //return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,10 +145,18 @@
     }
     
     // Configure the cell...
+    
+    Entry *e = [[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.textLabel.text = e.name;
+    cell.detailTextLabel.text = e.address;
+    
+    
+    /*
     GDataEntrySpreadsheetList *listEntry = [self.mEntryFeed.entries objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [[listEntry customElementForName:@"店名"] stringValue];
     cell.detailTextLabel.text = [[listEntry customElementForName:@"地址"] stringValue];
+     */
     
     return cell;
 }
@@ -134,10 +168,12 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [SVProgressHUD show];
     
-    GDataEntrySpreadsheetList *listEntry = [self.mEntryFeed.entries objectAtIndex:indexPath.row];
-    NSString *address = [[listEntry customElementForName:@"地址"] stringValue];
-    //address = @"1 Infinite Loop, Cupertino, CA";
-    //address = @"110台北市信義區信義路五段7號";
+    //GDataEntrySpreadsheetList *listEntry = [self.mEntryFeed.entries objectAtIndex:indexPath.row];
+    //NSString *address = [[listEntry customElementForName:@"地址"] stringValue];
+    
+    Entry *e = [[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSString *address = e.address;
+    
     [self.gencoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if(placemarks == nil || placemarks.count == 0)
@@ -156,8 +192,8 @@
                     NSNumber *lat = [location objectForKey:@"lat"];
                     NSNumber *lng = [location objectForKey:@"lng"];
                     
-                    [self showMapViewControllerWithLocationName:[[listEntry customElementForName:@"店名"] stringValue] 
-                                                        address:[[listEntry customElementForName:@"地址"] stringValue] 
+                    [self showMapViewControllerWithLocationName:e.name 
+                                                        address:e.address 
                                                             lat:lat 
                                                             lng:lng];
                     
@@ -182,8 +218,8 @@
             NSNumber *lat = [NSNumber numberWithDouble:placemark.location.coordinate.latitude];
             NSNumber *lng = [NSNumber numberWithDouble:placemark.location.coordinate.longitude];
             
-            [self showMapViewControllerWithLocationName:[[listEntry customElementForName:@"店名"] stringValue] 
-                                                address:[[listEntry customElementForName:@"地址"] stringValue] 
+            [self showMapViewControllerWithLocationName:e.name 
+                                                address:e.address 
                                                     lat:lat 
                                                     lng:lng];
             
@@ -208,7 +244,6 @@
     [mvc updateAndDisplay];
     
     [delegate.rootViewController revealToggle:nil];
-    //[self.navigationController.parentViewController performSelector:@selector(revealToggle:)];
 }
 
 @end
