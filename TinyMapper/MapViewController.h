@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "APIManager.h"
+#import "AppManager.h"
 #import "LocationAnnotation.h"
+#import "Entry.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *myMapView;
-@property (strong, nonatomic) APIManager *apiManager;
+@property (nonatomic, weak) AppManager *manager;
 
+@property (strong, nonatomic) Entry *entry;
 @property (strong, nonatomic) NSNumber *lat;
 @property (strong, nonatomic) NSNumber *lng;
 @property (strong, nonatomic) LocationAnnotation *currentAnnotation;

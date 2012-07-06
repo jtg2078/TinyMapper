@@ -7,34 +7,32 @@
 //
 
 #import "MapViewController.h"
-#import "OAuthViewController.h"
 
-#import "GTMOAuth2ViewControllerTouch.h"
 #import "APIManager.h"
 #import "AppDelegate.h"
 
 #import "MKMapView+ZoomLevel.h"
+#import "SVProgressHUD.h"
 
-
-@interface MapViewController () <OAuthViewControllerDelegate>
-
-@end
+#import "DetailViewController.h"
 
 @implementation MapViewController
 
 @synthesize myMapView;
-@synthesize apiManager;
+@synthesize manager;
 @synthesize lat;
 @synthesize lng;
 @synthesize currentAnnotation;
 @synthesize locationName;
 @synthesize locationAddress;
+@synthesize entry;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.title = NSLocalizedString(@"地圖", nil);
     }
     return self;
 }
@@ -44,25 +42,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = NSLocalizedString(@"Front View", @"FrontView");
-	
-	if ([self.navigationController.parentViewController respondsToSelector:@selector(revealGesture:)] && [self.navigationController.parentViewController respondsToSelector:@selector(revealToggle:)])
+	if ([self.navigationController.parentViewController respondsToSelector:@selector(revealGesture:)] && 
+        [self.navigationController.parentViewController respondsToSelector:@selector(revealToggle:)])
 	{
 		UIPanGestureRecognizer *navigationBarPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self.navigationController.parentViewController action:@selector(revealGesture:)];
 		[self.navigationController.navigationBar addGestureRecognizer:navigationBarPanGestureRecognizer];
 		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"列表", nil) 
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"地點列表", nil) 
                                                                                  style:UIBarButtonItemStylePlain 
                                                                                 target:self.navigationController.parentViewController 
                                                                                 action:@selector(revealToggle:)];
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"OAuth", nil) 
-                                                                                  style:UIBarButtonItemStylePlain 
-                                                                                 target:self 
-                                                                                 action:@selector(loginGData)];
 	}
     
-    
+    self.manager = [AppManager sharedInstance];
 }
 
 - (void)viewDidUnload
@@ -80,28 +72,18 @@
 
 #pragma mark - user interaction
 
-- (void)login
-{
-    NSURL *URL = [NSURL URLWithString:[self.apiManager constructOAuthURLString]];
-	
-    OAuthViewController *webViewController = [[OAuthViewController alloc] initWithURL:URL];
-	webViewController.modalPresentationStyle = UIModalPresentationPageSheet;
-    webViewController.authDelegate = self;
-	[self presentModalViewController:webViewController animated:YES];
-}
-
-
 - (void)loginGData
 {
-    // Do any additional setup after loading the view.
-    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    APIManager *api = delegate.apiManager;
-    
-    [api performAuthentication];
+    [SVProgressHUD showWithStatus:@"uploading location to GAE"];
+    [manager uploadLocationEntry:self.entry resultHandler:^(NSString *message, NSError *error) {
+        [SVProgressHUD showSuccessWithStatus:message];
+    }];
 }
 
 - (void)updateAndDisplay
 {
+    self.title = self.locationName;
+    
     if(self.currentAnnotation == nil)
     {
         currentAnnotation = [[LocationAnnotation alloc] init];
@@ -120,14 +102,6 @@
     
     [self.myMapView removeAnnotation:self.currentAnnotation];
     [self.myMapView addAnnotation:self.currentAnnotation];
-}
-
-#pragma mark - OAuthViewControllerDelegate
-
-- (void)receivedAuthToken:(NSString *)token
-{
-    NSLog(@"auth token: %@", token);
-    [self.apiManager setAuthToken:token];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -151,12 +125,7 @@
             customPinView.pinColor = MKPinAnnotationColorPurple;
             customPinView.animatesDrop = YES;
             customPinView.canShowCallout = YES;
-            
-            // add a detail disclosure button to the callout which will open a new view controller page
-            //
-            // note: you can assign a specific call out accessory view, or as MKMapViewDelegate you can implement:
-            //  - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
-            //
+            customPinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 			
             return customPinView;
         }
@@ -172,7 +141,6 @@
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-    
     for (id<MKAnnotation> annotation in mapView.annotations) 
 	{       
 		if ([annotation isKindOfClass:[LocationAnnotation class]]) 
@@ -186,6 +154,16 @@
             break;
 		}
 	}
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    DetailViewController *dvc = [[DetailViewController alloc] init];
+    dvc.entry = self.entry;
+    UINavigationController *nav_dvc = [[UINavigationController alloc] initWithRootViewController:dvc];
+    nav_dvc.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    [self presentModalViewController:nav_dvc animated:YES];
 }
 
 @end

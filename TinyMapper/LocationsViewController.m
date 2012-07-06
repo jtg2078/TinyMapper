@@ -46,57 +46,23 @@
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // -------------------- view controller --------------------
     
     gencoder = [[CLGeocoder alloc] init];
-    
     manager = [AppManager sharedInstance];
     
-    [SVProgressHUD show];
-    [manager updateSuccess:^(NSString *message, NSArray *results) {
-        self.array = results;
-        [self.tableView reloadData];
-        [SVProgressHUD showSuccessWithStatus:message];
-    } failure:^(NSString *message, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:message];
-    }];
+    // -------------------- naivgation bar --------------------
     
-    /*
-    if(self.spreadsheet)
-    {
-        NSURL *feedURL = [self.spreadsheet worksheetsFeedURL];
-        if (feedURL) 
-        {
-            [SVProgressHUD show];
-            [self.spreadsheetService fetchFeedWithURL:feedURL completionHandler:^(GDataServiceTicket *ticket, GDataFeedBase *feed, NSError *error) {
-                
-                GDataFeedWorksheet *worksheetFeed = (GDataFeedWorksheet *)feed;
-                // just grab the first worksheet if availabile
-                if(worksheetFeed.entries.count)
-                {
-                    GDataEntryWorksheet *worksheet = [worksheetFeed.entries objectAtIndex:0];
-                    if(worksheet)
-                    {
-                        NSURL *worksheetURL = worksheet.listFeedURL;
-                        if(worksheetURL)
-                        {
-                            [self.spreadsheetService fetchFeedWithURL:worksheetURL completionHandler:^(GDataServiceTicket *ticket, GDataFeedBase *feed, NSError *error) {
-                                
-                                self.mEntryFeed = feed;
-                                
-                                [self.tableView reloadData];
-                            }];
-                            [SVProgressHUD dismiss];
-                        }
-                    }
-                }
-                
-            }];
-        }
-    }
-     */
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"重新整理", nil) 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self 
+                                                                  action:@selector(loadData)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+    
+    // -------------------- table view data --------------------
+    
+    [self loadData];
 }
 
 - (void)viewDidUnload
@@ -104,6 +70,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    [self setGencoder:nil];
+    [self setArray:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -129,9 +97,6 @@
 {
     int rows = [[self.array objectAtIndex:section] count];
     return rows;
-    
-    //int rows = self.mEntryFeed.entries.count;
-    //return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -150,14 +115,6 @@
     cell.textLabel.text = e.name;
     cell.detailTextLabel.text = e.address;
     
-    
-    /*
-    GDataEntrySpreadsheetList *listEntry = [self.mEntryFeed.entries objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = [[listEntry customElementForName:@"店名"] stringValue];
-    cell.detailTextLabel.text = [[listEntry customElementForName:@"地址"] stringValue];
-     */
-    
     return cell;
 }
 
@@ -168,10 +125,19 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [SVProgressHUD show];
     
-    //GDataEntrySpreadsheetList *listEntry = [self.mEntryFeed.entries objectAtIndex:indexPath.row];
-    //NSString *address = [[listEntry customElementForName:@"地址"] stringValue];
-    
     Entry *e = [[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    if(e.lat && e.lon)
+    {
+        [self showMapViewControllerWithLocationName:e.name 
+                                            address:e.address 
+                                                lat:e.lat
+                                                lng:e.lon 
+                                              entry:e];
+        [SVProgressHUD dismiss];
+        return;
+    }
+    
     NSString *address = e.address;
     
     [self.gencoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -192,10 +158,14 @@
                     NSNumber *lat = [location objectForKey:@"lat"];
                     NSNumber *lng = [location objectForKey:@"lng"];
                     
+                    e.lat = lat;
+                    e.lon = lng;
+                    
                     [self showMapViewControllerWithLocationName:e.name 
                                                         address:e.address 
                                                             lat:lat 
-                                                            lng:lng];
+                                                            lng:lng 
+                                                          entry:e];
                     
                     [SVProgressHUD dismiss];
                 }
@@ -218,20 +188,42 @@
             NSNumber *lat = [NSNumber numberWithDouble:placemark.location.coordinate.latitude];
             NSNumber *lng = [NSNumber numberWithDouble:placemark.location.coordinate.longitude];
             
+            e.lat = lat;
+            e.lon = lng;
+
             [self showMapViewControllerWithLocationName:e.name 
                                                 address:e.address 
                                                     lat:lat 
-                                                    lng:lng];
+                                                    lng:lng 
+                                                  entry:e];
             
             [SVProgressHUD dismiss];
         }
     }];
 }
 
+#pragma mark - load data
+
+- (void)loadData
+{
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"下載中...", nil)];
+    [manager updateSuccess:^(NSString *message, NSArray *results) {
+        self.array = results;
+        [self.tableView reloadData];
+        [SVProgressHUD showSuccessWithStatus:message];
+    } failure:^(NSString *message, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:message];
+    }];
+}
+
+#pragma mark - user interaction
+
 - (void)showMapViewControllerWithLocationName:(NSString *)name 
                                       address:(NSString *)address 
                                           lat:(NSNumber *)lat 
-                                          lng:(NSNumber *)lng
+                                          lng:(NSNumber *)lng 
+                                        entry:(Entry *)e
+
 {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     MapViewController *mvc = delegate.mapViewController;
@@ -240,6 +232,7 @@
     mvc.locationAddress = address;
     mvc.lat = lat;
     mvc.lng = lng;
+    mvc.entry = e;
     
     [mvc updateAndDisplay];
     

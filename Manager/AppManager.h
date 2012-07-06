@@ -25,4 +25,7 @@
 - (void)updateSuccess:(void (^)(NSString *message, NSArray *results))success 
               failure:(void (^)(NSString *message, NSError *error))failure;
 
+- (void)uploadLocationEntry:(Entry *)entry 
+              resultHandler:(void (^)(NSString *message, NSError *error))resultHandler;
+
 @end

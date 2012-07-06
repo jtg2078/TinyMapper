@@ -40,6 +40,11 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
 #define DEFAULT_UPDATE_FAILURE_MESSAGE      @"更新失敗"
 #define DEFAULT_UPDATE_SUCCESS_MESSAGE      @"更新完成"
 
+#define DEFAULT_API_URL     @"http://localhost:8081"
+
+#define API_SUCCESS_FLAG    @"success"
+#define API_FAILIRE_FLAG    @"failure"
+
 #pragma mark - synthesize
 
 @synthesize service;
@@ -68,6 +73,8 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
     
     [self.service setUserCredentialsWithUsername:DEFAULT_GOOGLE_ID
                                         password:DEFAULT_GOOGLE_PW];
+    
+    client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:DEFAULT_API_URL]];
 }
 
 #pragma mark - main methods
@@ -103,6 +110,74 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
             self.updateFailure([NSString stringWithFormat:@"找不到文件: %@", DEFAULT_TARGET_FILE], nil);
         
     }];
+}
+
+- (void)uploadLocationEntry:(Entry *)entry 
+              resultHandler:(void (^)(NSString *message, NSError *error))resultHandler
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(entry.name)
+        [params setObject:entry.name            forKey:@"name"];
+    if(entry.type)
+        [params setObject:entry.type            forKey:@"type"];
+    if(entry.address)
+        [params setObject:entry.address         forKey:@"address"];
+    if(entry.lat)
+        [params setObject:entry.lat.stringValue forKey:@"lat"];
+    if(entry.lon)
+        [params setObject:entry.lon.stringValue forKey:@"lon"];
+    if(entry.tel)
+        [params setObject:entry.tel             forKey:@"tel"];
+    if(entry.hours)
+        [params setObject:entry.hours           forKey:@"hours"];
+    if(entry.reservation)
+        [params setObject:entry.reservation     forKey:@"reservation"];
+    if(entry.review)
+        [params setObject:entry.review          forKey:@"review"];
+    if(entry.note)
+        [params setObject:entry.note            forKey:@"note"];
+    
+    NSMutableURLRequest *request = [self.client requestWithMethod:@"POST" 
+                                                             path:@"update" 
+                                                       parameters:params];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        NSString *result = [JSON objectForKey:@"result"];
+        NSString *message = nil;
+        if([result isEqualToString:API_SUCCESS_FLAG] == YES)
+        {
+            message = [NSString stringWithFormat:@"The entry has been uploaded succesfully and assigned to Id: %@", [JSON objectForKey:@"id"]];
+        }
+        else
+        {
+            message = [NSString stringWithFormat:@"The entry failed to upload with reason: %@", [JSON objectForKey:@"reason"]];
+        }
+        
+        if(resultHandler)
+            resultHandler(message, nil);
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        
+        if(resultHandler)
+            resultHandler(@"Error occured from AFNetworking", error);
+    }];
+    
+    [operation start];
+}
+
+- (void)bulkUploadLocationEntries:(NSArray *)entries
+{
+    for (Entry *e in entries)
+    {
+        [self uploadLocationEntry:e resultHandler:^(NSString *message, NSError *error) {
+            
+            if(error == nil)
+                NSLog(@"%@", message);
+            else
+                NSLog(@"%@: %@", message, [error description]);
+        }];
+    }
 }
 
 #pragma mark - data processing
@@ -154,6 +229,7 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
 - (void)processEntry:(GDataFeedBase *)entry
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableArray *entries = [NSMutableArray array];
     
     for(GDataEntrySpreadsheetList *listEntry in entry)
     {
@@ -184,12 +260,15 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
         
         [array addObject:e];
         [dict setObject:array forKey:type];
+        [entries addObject:e];
     }
     
     self.categories = dict;
     
     if(self.updateSuccess)
         self.updateSuccess(DEFAULT_UPDATE_SUCCESS_MESSAGE, [self.categories allValues]);
+    
+    //[self bulkUploadLocationEntries:entries];
 }
 
 #pragma mark - singleton implementation code

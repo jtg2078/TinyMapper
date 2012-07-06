@@ -13,6 +13,7 @@
 #import "MapViewController.h"
 #import "LocationsViewController.h"
 #import "APIManager.h"
+#import "TestFlight.h"
 
 @implementation AppDelegate
 
@@ -27,12 +28,24 @@
 @synthesize rootViewController;
 @synthesize locationsViewController;
 
+#define TEST_FLIGHT_TOKEN @"56a3de7d38e628d6849f7010bd4dc926_MTA3MTIyMjAxMi0wNy0wNSAxMDowOTo0My41MDg5Njg"
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    // ---------- test flight ----------
+    
+    [TestFlight takeOff:TEST_FLIGHT_TOKEN];
+
+#define TESTING 1
+#ifdef TESTING
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    
     // ---------- my addition ----------
+    
     apiManager = [[APIManager alloc] init];
     
     /*
@@ -44,7 +57,6 @@
     UINavigationController *nav_lvc = [[UINavigationController alloc] initWithRootViewController:locationsViewController];
     
     mapViewController = [[MapViewController alloc] init];
-    mapViewController.apiManager = apiManager;
     UINavigationController *nav_mvc =[[UINavigationController alloc] initWithRootViewController:mapViewController];
     
     rootViewController = [[RootViewController alloc] initWithFrontViewController:nav_mvc rearViewController:nav_lvc];
