@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString * type;
 
 @property (nonatomic, strong) NSString * address;
+@property (nonatomic, strong) NSString * formattedAddress;
 @property (nonatomic, strong) NSNumber * lat;
 @property (nonatomic, strong) NSNumber * lon;
 

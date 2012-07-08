@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "GData.h"
 #import "AppManager.h"
 

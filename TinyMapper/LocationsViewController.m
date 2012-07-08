@@ -160,6 +160,7 @@
                     
                     e.lat = lat;
                     e.lon = lng;
+                    e.formattedAddress = [JSON objectForKey:@"formatted_address"];
                     
                     [self showMapViewControllerWithLocationName:e.name 
                                                         address:e.address 
@@ -190,6 +191,7 @@
             
             e.lat = lat;
             e.lon = lng;
+            e.formattedAddress = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
 
             [self showMapViewControllerWithLocationName:e.name 
                                                 address:e.address 

@@ -13,12 +13,13 @@
 #import "MGBoxLine.h"
 #import "Entry.h"
 
-@interface DetailViewController : UIViewController <UIScrollViewDelegate>
+@interface DetailViewController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate>
 {
     
 }
 
 @property (nonatomic, strong) MGScrollView *scroller;
 @property (strong, nonatomic) Entry *entry;
+@property (strong, nonatomic) UIAlertView *phoneAlert;
 
 @end

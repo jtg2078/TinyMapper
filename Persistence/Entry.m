@@ -15,6 +15,7 @@
 @synthesize name;
 @synthesize type;
 @synthesize address;
+@synthesize formattedAddress;
 @synthesize lat;
 @synthesize lon;
 @synthesize tel;
@@ -25,31 +26,33 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder 
 {
-    [coder encodeObject:self.name           forKey:@"EntryName"];
-    [coder encodeObject:self.type           forKey:@"EntryType"];
-    [coder encodeObject:self.address        forKey:@"EntryAddress"];
-    [coder encodeObject:self.lat            forKey:@"EntryLat"];
-    [coder encodeObject:self.lon            forKey:@"EntryLon"];
-    [coder encodeObject:self.tel            forKey:@"EntryTel"];
-    [coder encodeObject:self.hours          forKey:@"EntryHours"];
-    [coder encodeObject:self.reservation    forKey:@"EntryReservation"];
-    [coder encodeObject:self.review         forKey:@"EntryReview"];
-    [coder encodeObject:self.note           forKey:@"EntryNote"];
+    [coder encodeObject:self.name               forKey:@"EntryName"];
+    [coder encodeObject:self.type               forKey:@"EntryType"];
+    [coder encodeObject:self.address            forKey:@"EntryAddress"];
+    [coder encodeObject:self.formattedAddress   forKey:@"EntryFormattedAddress"];
+    [coder encodeObject:self.lat                forKey:@"EntryLat"];
+    [coder encodeObject:self.lon                forKey:@"EntryLon"];
+    [coder encodeObject:self.tel                forKey:@"EntryTel"];
+    [coder encodeObject:self.hours              forKey:@"EntryHours"];
+    [coder encodeObject:self.reservation        forKey:@"EntryReservation"];
+    [coder encodeObject:self.review             forKey:@"EntryReview"];
+    [coder encodeObject:self.note               forKey:@"EntryNote"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	if (self != nil) {
-        self.name =         [coder decodeObjectForKey:@"EntryName"];       
-        self.type =         [coder decodeObjectForKey:@"EntryType"];       
-        self.address =      [coder decodeObjectForKey:@"EntryAddress"];   
-        self.lat =          [coder decodeObjectForKey:@"EntryLat"];        
-        self.lon =          [coder decodeObjectForKey:@"EntryLon"];        
-        self.tel =          [coder decodeObjectForKey:@"EntryTel"];        
-        self.hours =        [coder decodeObjectForKey:@"EntryHours"];      
-        self.reservation =  [coder decodeObjectForKey:@"EntryReservation"];
-        self.review =       [coder decodeObjectForKey:@"EntryReview"];     
-        self.note =         [coder decodeObjectForKey:@"EntryNote"];       
+        self.name =             [coder decodeObjectForKey:@"EntryName"];       
+        self.type =             [coder decodeObjectForKey:@"EntryType"];       
+        self.address =          [coder decodeObjectForKey:@"EntryAddress"];
+        self.formattedAddress = [coder decodeObjectForKey:@"EntryFormattedAddress"];
+        self.lat =              [coder decodeObjectForKey:@"EntryLat"];        
+        self.lon =              [coder decodeObjectForKey:@"EntryLon"];        
+        self.tel =              [coder decodeObjectForKey:@"EntryTel"];        
+        self.hours =            [coder decodeObjectForKey:@"EntryHours"];      
+        self.reservation =      [coder decodeObjectForKey:@"EntryReservation"];
+        self.review =           [coder decodeObjectForKey:@"EntryReview"];     
+        self.note =             [coder decodeObjectForKey:@"EntryNote"];       
 	}
 	return self;
 }

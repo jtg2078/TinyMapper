@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9603748615A9625000524B74 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9603748515A9625000524B74 /* AddressBookUI.framework */; };
 		960C1D5A15A1DD7200F93929 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C1D5915A1DD7200F93929 /* AppManager.m */; };
 		960C1D6A15A1F4AD00F93929 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C1D6915A1F4AD00F93929 /* Entry.m */; };
 		9616D3F915A5D82E00D46A79 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9616D3F815A5D82E00D46A79 /* DetailViewController.m */; };
@@ -114,6 +115,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9603748515A9625000524B74 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		960C1D5815A1DD7200F93929 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppManager.h; path = Manager/AppManager.h; sourceTree = "<group>"; };
 		960C1D5915A1DD7200F93929 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppManager.m; path = Manager/AppManager.m; sourceTree = "<group>"; };
 		960C1D6815A1F4AD00F93929 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = Persistence/Entry.h; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9603748615A9625000524B74 /* AddressBookUI.framework in Frameworks */,
 				9616D40715A5EC7500D46A79 /* libz.dylib in Frameworks */,
 				96208980159CC2830074436F /* libGDataTouchStaticLib.a in Frameworks */,
 				962087A6159C9B460074436F /* SystemConfiguration.framework in Frameworks */,
@@ -618,11 +621,12 @@
 		961A49611590C4B0006A08F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9616D40615A5EC7500D46A79 /* libz.dylib */,
+				9603748515A9625000524B74 /* AddressBookUI.framework */,
 				961A49681590C4B0006A08F2 /* CoreData.framework */,
 				961A49661590C4B0006A08F2 /* CoreGraphics.framework */,
 				961A49DB1590D697006A08F2 /* CoreLocation.framework */,
 				961A49641590C4B0006A08F2 /* Foundation.framework */,
+				9616D40615A5EC7500D46A79 /* libz.dylib */,
 				961A49DD1590D6B4006A08F2 /* MapKit.framework */,
 				961A49D71590D675006A08F2 /* MessageUI.framework */,
 				961A49D91590D684006A08F2 /* QuartzCore.framework */,

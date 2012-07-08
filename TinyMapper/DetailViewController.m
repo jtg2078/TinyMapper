@@ -22,6 +22,7 @@
 
 @synthesize scroller;
 @synthesize entry;
+@synthesize phoneAlert;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -172,26 +173,95 @@
     return button;
 }
 
+- (NSString *)preparePhoneNumber:(NSString *)telString
+{
+    // phone num length should be xx-xxxx-xxxx
+    //                            00200007
+    
+    NSMutableString *processed = [NSMutableString stringWithCapacity:10+2];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:telString];
+    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    
+    while([scanner isAtEnd] == NO && processed.length < 12)
+    {
+        NSString *buffer;
+        if ([scanner scanCharactersFromSet:numbers intoString:&buffer]) 
+        {
+            [processed appendString:buffer];
+            if(processed.length == 2 || processed.length == 7)
+                [processed appendString:@"-"];
+        } 
+        else 
+        {
+            [scanner setScanLocation:([scanner scanLocation] + 1)];
+        }
+    }
+    
+    return processed;    
+}
+
 #pragma mark - user interaction
 
 - (void)callPhone:(UIButton *)sender
 {
+    NSString *tel = [self preparePhoneNumber:self.entry.tel];
     
+    phoneAlert = [[UIAlertView alloc] initWithTitle:nil 
+                                            message:[NSString stringWithFormat:@"撥號: %@", tel] 
+                                           delegate:self 
+                                  cancelButtonTitle:@"取消" 
+                                  otherButtonTitles:@"撥打", nil];
+    
+    [phoneAlert show];
 }
 
 - (void)openAddressInGoogleMap:(UIButton *)sender
 {
+    NSString *address = self.entry.address;
     
+    if([self.entry.formattedAddress length])
+        address = self.entry.formattedAddress;
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@",
+                           [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 - (void)copyAddress:(UIButton *)sender
 {
+    UIPasteboard *generalPasteBoard = [UIPasteboard generalPasteboard];
+    generalPasteBoard.string = self.entry.address;
     
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"已複製到剪貼簿" 
+                                                        message:self.entry.address 
+                                                       delegate:nil 
+                                              cancelButtonTitle:nil otherButtonTitles:@"ok",nil];
+    
+    [alertView show];
 }
 
 - (void)dismiss
 {
     [self.parentViewController dismissModalViewControllerAnimated:YES];
 }
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(alertView == self.phoneAlert)
+    {
+        if(buttonIndex == 1)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", self.entry.tel]]];
+        }
+        
+        NSLog(@"%d", buttonIndex);
+    }
+}
+
+
+
+
 
 @end
