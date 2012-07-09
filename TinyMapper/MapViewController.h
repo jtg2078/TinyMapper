@@ -23,7 +23,10 @@
 @property (strong, nonatomic) LocationAnnotation *currentAnnotation;
 @property (strong, nonatomic) NSString *locationName;
 @property (strong, nonatomic) NSString *locationAddress;
+@property (strong, nonatomic) NSArray *entries;
+@property (strong, nonatomic) NSMutableArray *annotations;
 
 - (void)updateAndDisplay;
+- (void)updateAndDisplayMultipleEntries;
 
 @end

@@ -139,6 +139,7 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    self.scroller.delegate = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

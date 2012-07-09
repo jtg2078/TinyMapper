@@ -16,6 +16,7 @@
 @synthesize address;
 @synthesize lat;
 @synthesize lng;
+@synthesize entry;
 
 #pragma mark - MKAnnotation
 

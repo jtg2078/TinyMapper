@@ -12,6 +12,7 @@
 
 #pragma mark - synthesize
 
+@synthesize identifier;
 @synthesize name;
 @synthesize type;
 @synthesize address;
@@ -26,6 +27,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder 
 {
+    [coder encodeObject:self.identifier         forKey:@"EntryIdentifier"]; 
     [coder encodeObject:self.name               forKey:@"EntryName"];
     [coder encodeObject:self.type               forKey:@"EntryType"];
     [coder encodeObject:self.address            forKey:@"EntryAddress"];
@@ -42,6 +44,7 @@
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [super init];
 	if (self != nil) {
+        self.identifier =       [coder decodeObjectForKey:@"EntryIdentifier"];
         self.name =             [coder decodeObjectForKey:@"EntryName"];       
         self.type =             [coder decodeObjectForKey:@"EntryType"];       
         self.address =          [coder decodeObjectForKey:@"EntryAddress"];

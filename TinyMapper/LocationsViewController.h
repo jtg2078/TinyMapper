@@ -21,9 +21,11 @@
 @property (nonatomic, strong) GDataEntrySpreadsheet *spreadsheet;
 @property (nonatomic, strong) GDataFeedBase *mEntryFeed;
 @property (nonatomic, strong) CLGeocoder *gencoder;
+@property (nonatomic, weak) NSOperationQueue *mainQueue;
 
 
 @property (nonatomic, weak) AppManager *manager;
 @property (nonatomic, strong) NSArray *array;
+@property (nonatomic, strong) NSMutableDictionary *dict;
 
 @end

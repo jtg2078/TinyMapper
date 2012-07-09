@@ -250,6 +250,7 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
         }
         
         Entry *e = [[Entry alloc] init];
+        e.identifier = listEntry.identifier;
         e.name = name;
         e.type = type;
         e.address = addr;

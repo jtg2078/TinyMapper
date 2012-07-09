@@ -26,6 +26,8 @@
 @synthesize locationName;
 @synthesize locationAddress;
 @synthesize entry;
+@synthesize entries;
+@synthesize annotations;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +57,7 @@
 	}
     
     self.manager = [AppManager sharedInstance];
+    self.annotations = [NSMutableArray array];
 }
 
 - (void)viewDidUnload
@@ -84,6 +87,12 @@
 {
     self.title = self.locationName;
     
+    if(self.annotations.count)
+    {
+        [self.myMapView removeAnnotations:self.annotations];
+        [self.annotations removeAllObjects];
+    }
+    
     if(self.currentAnnotation == nil)
     {
         currentAnnotation = [[LocationAnnotation alloc] init];
@@ -102,6 +111,59 @@
     
     [self.myMapView removeAnnotation:self.currentAnnotation];
     [self.myMapView addAnnotation:self.currentAnnotation];
+}
+
+- (void)updateAndDisplayMultipleEntries
+{
+    Entry *e = [self.entries lastObject];
+    self.title = e.type;
+    
+    // reset parameters
+    if(self.currentAnnotation)
+    {
+        [self.myMapView removeAnnotation:self.currentAnnotation];
+    }
+    
+    if(self.annotations.count)
+    {
+        [self.myMapView removeAnnotations:self.annotations];
+        [self.annotations removeAllObjects];
+    }
+    
+    for(Entry *e in self.entries)
+    {
+        LocationAnnotation *annotation = [[LocationAnnotation alloc] init];
+        annotation.name = e.name;
+        annotation.address = e.address;
+        annotation.lat = e.lat;
+        annotation.lng = e.lon;
+        annotation.entry = e;
+        
+        [self.annotations addObject:annotation];
+    }
+    
+    // calculate the zoom rect
+    
+    MKMapPoint annotationPoint = MKMapPointForCoordinate([[self.annotations lastObject] coordinate]);
+    if(self.myMapView.userLocation)
+        annotationPoint = MKMapPointForCoordinate(self.myMapView.userLocation.coordinate);
+    MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+    for (LocationAnnotation* annotation in self.annotations)
+    {
+        annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        if (MKMapRectIsNull(zoomRect)) {
+            zoomRect = pointRect;
+        } else {
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+    }
+    
+    [self.myMapView setVisibleMapRect:zoomRect animated:YES];
+    
+    
+    // add annotaion to the map
+    [self.myMapView addAnnotations:self.annotations];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -141,6 +203,10 @@
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
+    // so we are in multiple annotations mode, dont need to do auto map call out
+    if(self.annotations.count)
+        return;
+    
     for (id<MKAnnotation> annotation in mapView.annotations) 
 	{       
 		if ([annotation isKindOfClass:[LocationAnnotation class]]) 
@@ -159,7 +225,18 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     DetailViewController *dvc = [[DetailViewController alloc] init];
-    dvc.entry = self.entry;
+    
+    
+    if(self.annotations.count)
+    {
+        LocationAnnotation *annotation = view.annotation;
+        dvc.entry = annotation.entry;
+    }
+    else 
+    {
+        dvc.entry = self.entry;
+    }
+    
     UINavigationController *nav_dvc = [[UINavigationController alloc] initWithRootViewController:dvc];
     nav_dvc.modalPresentationStyle = UIModalPresentationFormSheet;
     
