@@ -7,6 +7,10 @@
 //
 
 #import "AppManager.h"
+#import "AppDelegate.h"
+//#import "GeocodingOperation.h"
+#import "AppleGeocodingOperation.h"
+#import "GoogleGeocodingOperation.h"
 
 static AppManager *singletonManager = nil;
 
@@ -45,6 +49,8 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
 #define API_SUCCESS_FLAG    @"success"
 #define API_FAILIRE_FLAG    @"failure"
 
+#define PLACE_UPDATE_GENERATION_KEY            @"placeUpdateGeneration"
+
 #pragma mark - synthesize
 
 @synthesize service;
@@ -52,6 +58,9 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
 @synthesize categories;
 @synthesize updateSuccess;
 @synthesize updateFailure;
+@synthesize context;
+@synthesize mainQueue;
+@synthesize geocoder;
 
 #pragma mark - init
 
@@ -75,6 +84,19 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
                                         password:DEFAULT_GOOGLE_PW];
     
     client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:DEFAULT_API_URL]];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    self.context = appDelegate.managedObjectContext;
+    self.mainQueue = [NSOperationQueue mainQueue];
+    self.mainQueue.maxConcurrentOperationCount = 1;
+    
+    geocoder = [[CLGeocoder alloc] init];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self 
+               selector:@selector(handleGeocodeNotification:) 
+                   name:GeocodeFinishedNotification 
+                 object:nil];
 }
 
 #pragma mark - main methods
@@ -231,6 +253,11 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     NSMutableArray *entries = [NSMutableArray array];
     
+    // update generation
+    int updateGeneration = [self getPlaceUpdateGeneration];
+    updateGeneration += 1;
+    [self setPlaceUpdateGeneration:updateGeneration];
+    
     for(GDataEntrySpreadsheetList *listEntry in entry)
     {
         NSString *name = [[listEntry customElementForName:KEY_NAME] stringValue];
@@ -262,7 +289,29 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
         [array addObject:e];
         [dict setObject:array forKey:type];
         [entries addObject:e];
+        
+        // core data
+        [self addOrUpdatePlaceWithIdentifier:listEntry.identifier 
+                                        name:name 
+                                        type:type 
+                                     address:addr 
+                                         tel:tele 
+                                         lat:nil 
+                                         lon:nil 
+                                       hours:nil 
+                                     reserve:rsvp 
+                                      review:review 
+                                        note:note 
+                                        misc:nil 
+                                   updateGen:updateGeneration];
     }
+    
+    // save them
+    NSError *error = nil;
+    [self.context save:&error];
+    
+    // run the background geocoded task
+    [self runAppleGeocoding];
     
     self.categories = dict;
     
@@ -270,6 +319,243 @@ typedef void (^UpdateFailureBlock)(NSString *message, NSError *error);
         self.updateSuccess(DEFAULT_UPDATE_SUCCESS_MESSAGE, [self.categories allValues]);
     
     //[self bulkUploadLocationEntries:entries];
+}
+
+#pragma mark - background tasks
+
+- (void)runAppleGeocoding
+{
+    NSArray *places = [self getUnGeocodedPlaces];
+    
+    for(Place *p in places)
+    {
+        AppleGeocodingOperation *operation = [[AppleGeocodingOperation alloc] initWithAddress:p.address identifier:p.identifier];
+        [self.mainQueue addOperation:operation];
+    }
+}
+
+- (void)runGoogleGeocoding
+{
+    
+}
+
+- (void)handleGeocodeNotification:(NSNotification *)notif
+{
+    BOOL isSuccessful = [[notif.userInfo objectForKey:GeocodeResultKeyResult] boolValue];
+    NSString *message = [notif.userInfo objectForKey:GeocodeResultKeyMessage];
+    NSStream *address = [notif.userInfo objectForKey:GeocodeResultKeyAddress];
+    
+    if(isSuccessful)
+    {
+        NSString *identifier = [notif.userInfo objectForKey:GeocodeResultKeyIdentifier];
+        Place *p = [self getPlaceIfExistWithIdentifier:identifier];
+        
+        if(p)
+        {
+            p.lat = [notif.userInfo objectForKey:GeocodeResultKeyLat];
+            p.lon = [notif.userInfo objectForKey:GeocodeResultKeyLon];
+            p.addressFormatted = [notif.userInfo objectForKey:GeocodeResultKeyFormattedAddress];
+            p.geocoded = [NSNumber numberWithBool:YES];
+            
+            NSError *error = nil;
+            [self.context save:&error];
+        }
+    }
+    
+    NSLog(@"Geocoding - %@ Result: %@", message, address);
+}
+
+#pragma mark - update generation
+
+- (int)getPlaceUpdateGeneration
+{
+    int savedValue = [[NSUserDefaults standardUserDefaults] integerForKey:PLACE_UPDATE_GENERATION_KEY];
+    return savedValue;
+}
+
+- (void)setPlaceUpdateGeneration:(int)anInt
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:anInt forKey:PLACE_UPDATE_GENERATION_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - persistence methods
+
+- (void)addOrUpdatePlaceWithIdentifier:(NSString *)identifier 
+                                  name:(NSString *)name 
+                                  type:(NSString *)type 
+                               address:(NSString *)address 
+                                   tel:(NSString *)tel 
+                                   lat:(NSNumber *)lat 
+                                   lon:(NSNumber *)lon 
+                                 hours:(NSString *)hours 
+                               reserve:(NSString *)reserve 
+                                review:(NSString *)review 
+                                  note:(NSString *)note 
+                                  misc:(NSString *)misc 
+                             updateGen:(int)generation
+{
+    Place *place = [self getPlaceIfExistWithIdentifier:identifier];
+    
+    if(place)
+    {
+        // update
+        BOOL isDirty = NO;
+        if(name.length && [name isEqualToString:place.placeName] == NO)
+        {
+            place.placeName = name;
+            isDirty = YES;
+        }
+        
+        if(type.length && [type isEqualToString:place.placeType] == NO)
+        {
+            place.placeName = type;
+            isDirty = YES;
+        }
+        
+        if(address.length && [address isEqualToString:place.address] == NO)
+        {
+            place.address = address;
+            isDirty = YES;
+            
+            if(lat == nil || lon == nil)
+                place.geocoded = [NSNumber numberWithBool:NO];
+        }
+        
+        if(tel.length && [tel isEqualToString:place.tel] == NO)
+        {
+            place.tel = tel;
+            isDirty = YES;
+        }
+        
+        if(lat && [lat isEqualToNumber:place.lat] == NO)
+        {
+            place.lat = lat;
+            isDirty = YES;
+        }
+        
+        if(lon && [lon isEqualToNumber:place.lon] == NO)
+        {
+            place.lon = lon;
+            isDirty = YES;
+        }
+        
+        if(hours.length && [hours isEqualToString:place.hoursInfo] == NO)
+        {
+            place.hoursInfo = hours;
+            isDirty = YES;
+        }
+        
+        if(reserve.length && [reserve isEqualToString:place.reservationInfo] == NO)
+        {
+            place.reservationInfo = reserve;
+            isDirty = YES;
+        }
+        
+        if(review.length && [review isEqualToString:place.reviewInfo] == NO)
+        {
+            place.reviewInfo = review;
+            isDirty = YES;
+        }
+        
+        if(note.length && [note isEqualToString:place.noteInfo] == NO)
+        {
+            place.noteInfo = note;
+            isDirty = YES;
+        }
+        
+        if(misc.length && [misc isEqualToString:place.miscInfo] == NO)
+        {
+            place.miscInfo = misc;
+            isDirty = YES;
+        }
+        
+        if(isDirty)
+        {
+            place.dateModified = [NSDate date];
+        }
+    }
+    else
+    {
+        place = [self getOrCreatePlaceWithIdentifier:identifier];
+        place.identifier = identifier;
+        place.placeName = name;
+        place.placeType = type;
+        place.address = address;
+        place.tel = tel;
+        place.lat = lat;
+        place.lon = lon;
+        place.hoursInfo = hours;
+        place.reservationInfo = reserve;
+        place.reviewInfo = review;
+        place.noteInfo = note;
+        place.dateAdded = [NSDate date];
+        place.dateModified = [NSDate date];
+        place.miscInfo = misc;
+        place.uploaded = [NSNumber numberWithBool:NO];
+        if(lat && lon)
+            place.geocoded = [NSNumber numberWithBool:YES];
+        else
+            place.geocoded = [NSNumber numberWithBool:NO];
+    }
+    place.updateGeneration = [NSNumber numberWithInt:generation];
+}
+
+- (Place *)getPlaceIfExistWithIdentifier:(NSString *)identifier
+{
+    Place *place = nil;
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+    request.predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
+    
+    NSError *error = nil;
+    place = [[context executeFetchRequest:request error:&error] lastObject];
+    
+    if (!error && !place)
+        return nil;
+    
+    return place;
+}
+
+- (Place *)getOrCreatePlaceWithIdentifier:(NSString *)identifier
+{
+    Place *place = [self getPlaceIfExistWithIdentifier:identifier];
+    
+    if (!place) {
+        place = [NSEntityDescription insertNewObjectForEntityForName:@"Place" inManagedObjectContext:context];
+        place.identifier = identifier;
+    }
+    return place;
+}
+
+- (void)deletePlaceIfExistWithIdentifier:(NSString *)identifier
+{
+    Place *place = [self getPlaceIfExistWithIdentifier:identifier];
+    
+    if(place)
+        [context deleteObject:place];
+}
+
+- (NSArray *)getUnGeocodedPlaces
+{
+    // find the items that need to be geocoded
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+    request.predicate = [NSPredicate predicateWithFormat:@"geocoded = %@", [NSNumber numberWithBool:NO]];
+    request.includesPendingChanges = YES;
+    
+    NSArray *places = nil;
+    NSError *error = nil;
+    places = [self.context executeFetchRequest:request error:&error];
+    
+    if(error)
+    {
+        NSLog(@"error while runGeocodingTask: %@", [error description]);
+        return nil;
+    }
+    
+    return places;
 }
 
 #pragma mark - singleton implementation code

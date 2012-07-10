@@ -11,6 +11,11 @@
 		960374A915A9B71300524B74 /* AggregatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960374A715A9B71300524B74 /* AggregatedViewController.m */; };
 		960374AA15A9B71300524B74 /* AggregatedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960374A815A9B71300524B74 /* AggregatedViewController.xib */; };
 		960374B115A9C7C100524B74 /* GeocodingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 960374B015A9C7C100524B74 /* GeocodingOperation.m */; };
+		960374D715AB2CC100524B74 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 960374D615AB2CC000524B74 /* Place.m */; };
+		960374DA15AB2CC100524B74 /* WebLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 960374D915AB2CC100524B74 /* WebLink.m */; };
+		9608A58F15AB2F77008BB143 /* PersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9608A58E15AB2F77008BB143 /* PersistenceManager.m */; };
+		9608A59915AC7068008BB143 /* AppleGeocodingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9608A59815AC7067008BB143 /* AppleGeocodingOperation.m */; };
+		9608A59D15AC7098008BB143 /* GoogleGeocodingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9608A59C15AC7098008BB143 /* GoogleGeocodingOperation.m */; };
 		960C1D5A15A1DD7200F93929 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C1D5915A1DD7200F93929 /* AppManager.m */; };
 		960C1D6A15A1F4AD00F93929 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C1D6915A1F4AD00F93929 /* Entry.m */; };
 		9616D3F915A5D82E00D46A79 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9616D3F815A5D82E00D46A79 /* DetailViewController.m */; };
@@ -124,6 +129,16 @@
 		960374A815A9B71300524B74 /* AggregatedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AggregatedViewController.xib; sourceTree = "<group>"; };
 		960374AF15A9C7C100524B74 /* GeocodingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeocodingOperation.h; sourceTree = "<group>"; };
 		960374B015A9C7C100524B74 /* GeocodingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeocodingOperation.m; sourceTree = "<group>"; };
+		960374D515AB2CC000524B74 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = Persistence/Place.h; sourceTree = "<group>"; };
+		960374D615AB2CC000524B74 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = Persistence/Place.m; sourceTree = "<group>"; };
+		960374D815AB2CC100524B74 /* WebLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebLink.h; path = Persistence/WebLink.h; sourceTree = "<group>"; };
+		960374D915AB2CC100524B74 /* WebLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebLink.m; path = Persistence/WebLink.m; sourceTree = "<group>"; };
+		9608A58D15AB2F77008BB143 /* PersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersistenceManager.h; path = Persistence/PersistenceManager.h; sourceTree = "<group>"; };
+		9608A58E15AB2F77008BB143 /* PersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersistenceManager.m; path = Persistence/PersistenceManager.m; sourceTree = "<group>"; };
+		9608A59715AC7067008BB143 /* AppleGeocodingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleGeocodingOperation.h; sourceTree = "<group>"; };
+		9608A59815AC7067008BB143 /* AppleGeocodingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleGeocodingOperation.m; sourceTree = "<group>"; };
+		9608A59B15AC7098008BB143 /* GoogleGeocodingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleGeocodingOperation.h; sourceTree = "<group>"; };
+		9608A59C15AC7098008BB143 /* GoogleGeocodingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleGeocodingOperation.m; sourceTree = "<group>"; };
 		960C1D5815A1DD7200F93929 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppManager.h; path = Manager/AppManager.h; sourceTree = "<group>"; };
 		960C1D5915A1DD7200F93929 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppManager.m; path = Manager/AppManager.m; sourceTree = "<group>"; };
 		960C1D6815A1F4AD00F93929 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = Persistence/Entry.h; sourceTree = "<group>"; };
@@ -572,6 +587,13 @@
 		960C1D6715A1F45F00F93929 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				961A49761590C4B0006A08F2 /* TinyMapper.xcdatamodeld */,
+				9608A58D15AB2F77008BB143 /* PersistenceManager.h */,
+				9608A58E15AB2F77008BB143 /* PersistenceManager.m */,
+				960374D815AB2CC100524B74 /* WebLink.h */,
+				960374D915AB2CC100524B74 /* WebLink.m */,
+				960374D515AB2CC000524B74 /* Place.h */,
+				960374D615AB2CC000524B74 /* Place.m */,
 				960C1D6815A1F4AD00F93929 /* Entry.h */,
 				960C1D6915A1F4AD00F93929 /* Entry.m */,
 			);
@@ -652,7 +674,6 @@
 				9616D3F215A5D07900D46A79 /* old */,
 				961A49731590C4B0006A08F2 /* AppDelegate.h */,
 				961A49741590C4B0006A08F2 /* AppDelegate.m */,
-				961A49761590C4B0006A08F2 /* TinyMapper.xcdatamodeld */,
 				961A496B1590C4B0006A08F2 /* Supporting Files */,
 				9682A51D1598BA760095F85E /* RootViewController.h */,
 				9682A51E1598BA760095F85E /* RootViewController.m */,
@@ -671,6 +692,10 @@
 				9616D3F815A5D82E00D46A79 /* DetailViewController.m */,
 				960374AF15A9C7C100524B74 /* GeocodingOperation.h */,
 				960374B015A9C7C100524B74 /* GeocodingOperation.m */,
+				9608A59715AC7067008BB143 /* AppleGeocodingOperation.h */,
+				9608A59815AC7067008BB143 /* AppleGeocodingOperation.m */,
+				9608A59B15AC7098008BB143 /* GoogleGeocodingOperation.h */,
+				9608A59C15AC7098008BB143 /* GoogleGeocodingOperation.m */,
 			);
 			path = TinyMapper;
 			sourceTree = "<group>";
@@ -1332,6 +1357,11 @@
 				9616D3F915A5D82E00D46A79 /* DetailViewController.m in Sources */,
 				960374A915A9B71300524B74 /* AggregatedViewController.m in Sources */,
 				960374B115A9C7C100524B74 /* GeocodingOperation.m in Sources */,
+				960374D715AB2CC100524B74 /* Place.m in Sources */,
+				960374DA15AB2CC100524B74 /* WebLink.m in Sources */,
+				9608A58F15AB2F77008BB143 /* PersistenceManager.m in Sources */,
+				9608A59915AC7068008BB143 /* AppleGeocodingOperation.m in Sources */,
+				9608A59D15AC7098008BB143 /* GoogleGeocodingOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1522,7 +1552,8 @@
 				961A49771590C4B0006A08F2 /* TinyMapper.xcdatamodel */,
 			);
 			currentVersion = 961A49771590C4B0006A08F2 /* TinyMapper.xcdatamodel */;
-			path = TinyMapper.xcdatamodeld;
+			name = TinyMapper.xcdatamodeld;
+			path = TinyMapper/TinyMapper.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

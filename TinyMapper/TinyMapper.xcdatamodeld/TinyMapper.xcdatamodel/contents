@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Place" representedClassName="Place" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="addressFormatted" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateModified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="geocoded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="hoursInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="miscInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placeType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reservationInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reviewInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updateGeneration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="relatedLinks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WebLink" inverseName="ofPlace" inverseEntity="WebLink" syncable="YES"/>
+    </entity>
+    <entity name="WebLink" representedClassName="WebLink" syncable="YES">
+        <attribute name="cacheLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isProcessed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="linkPhoto" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="linkSummary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ofPlace" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="relatedLinks" inverseEntity="Place" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Place" positionX="160" positionY="192" width="128" height="330"/>
+        <element name="WebLink" positionX="160" positionY="192" width="128" height="165"/>
+    </elements>
 </model>

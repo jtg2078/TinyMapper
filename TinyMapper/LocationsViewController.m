@@ -16,6 +16,8 @@
 
 #import "GeocodingOperation.h"
 
+#import "Place.h"
+
 
 @implementation LocationsViewController
 
@@ -30,6 +32,7 @@
 @synthesize array;
 @synthesize mainQueue;
 @synthesize dict;
+@synthesize placeFRC;
 
 #pragma mark - init
 
@@ -53,6 +56,7 @@
     
     // -------------------- view controller --------------------
     
+    appDelegate = [[UIApplication sharedApplication] delegate];
     gencoder = [[CLGeocoder alloc] init];
     manager = [AppManager sharedInstance];
     self.mainQueue = [NSOperationQueue mainQueue];
@@ -66,16 +70,42 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
     // -------------------- notification --------------------
-    
+    /*
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self 
                selector:@selector(handleGeocodeNotification:) 
                    name:GeocodeFinishedNotification 
                  object:nil];
-    
+    */
     // -------------------- table view data --------------------
     
-    [self loadData];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    
+    // setup fetch request
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+    
+    // setup sorting
+    NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"placeType" ascending:YES];
+    NSSortDescriptor *sort2 = [NSSortDescriptor sortDescriptorWithKey:@"address" ascending:YES];
+    NSArray *sortArray = [NSArray arrayWithObjects:sort1, sort2, nil];
+    fetchRequest.sortDescriptors = sortArray;
+    
+    placeFRC = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                                   managedObjectContext:context 
+                                                     sectionNameKeyPath:@"placeType" 
+                                                              cacheName:nil];
+    
+    NSError *error = nil;
+    if([placeFRC performFetch:&error] == NO)
+    {
+        NSLog(@"error while placeFRC performFetch: %@", [error description]);
+    }
+    else
+    {
+        [self.tableView reloadData];
+        placeFRC.delegate = self;
+    }
 }
 
 - (void)viewDidUnload
@@ -85,6 +115,8 @@
     // e.g. self.myOutlet = nil;
     [self setGencoder:nil];
     [self setArray:nil];
+    self.placeFRC.delegate = nil;
+    [self setPlaceFRC:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -92,27 +124,101 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller 
+{
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller 
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex 
+     forChangeType:(NSFetchedResultsChangeType)type 
+{
+    switch(type) 
+    {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller 
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath 
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath 
+{
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) 
+    {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                    atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller 
+{
+    [self.tableView endUpdates];
+}
+
+#pragma mark - cell configuration
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Place *place = [self.placeFRC objectAtIndexPath:indexPath];
+    
+    cell.textLabel.text = place.placeName;
+    cell.detailTextLabel.text = place.address;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.array.count;
+    return self.placeFRC.sections.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSArray *sectionArray = [self.array objectAtIndex:section];
-    Entry *e = [sectionArray lastObject];
-    return [NSString stringWithFormat:@"%@(%d)", e.type, sectionArray.count];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.placeFRC.sections objectAtIndex:section];
+    return sectionInfo.name;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section 
 {
-    NSArray *sectionArray = [self.array objectAtIndex:section];
-    int rows = [sectionArray count];
-    if(rows > 1)
-        rows++;
-    return rows;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.placeFRC.sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -126,29 +232,7 @@
     }
     
     // Configure the cell...
-    
-    NSArray *sectionArray = [self.array objectAtIndex:indexPath.section];
-    
-    if(sectionArray.count == 1)
-    {
-        Entry *e = [[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        cell.textLabel.text = e.name;
-        cell.detailTextLabel.text = e.address;
-    }
-    else
-    {
-        if(indexPath.row == sectionArray.count)
-        {
-            cell.textLabel.text = @"標示全部...";
-            cell.detailTextLabel.text = @"";
-        }
-        else
-        {
-            Entry *e = [[self.array objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            cell.textLabel.text = e.name;
-            cell.detailTextLabel.text = e.address;
-        }
-    }
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
@@ -159,17 +243,23 @@
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSArray *sectionArray = [self.array objectAtIndex:indexPath.section];
+    Place *place = [self.placeFRC objectAtIndexPath:indexPath];
     
-    if(indexPath.row == sectionArray.count)
-    {
-        [self batchGeocodeEntries:sectionArray];
-    }
-    else
-    {
-        Entry *e = [sectionArray objectAtIndex:indexPath.row];
-        [self geocodeEntry:e andShowInMap:YES];
-    }
+    Entry *e = [[Entry alloc] init];
+    e.identifier = place.identifier;
+    e.name = place.placeName;
+    e.type = place.placeType;
+    e.address = place.address;
+    e.formattedAddress = place.addressFormatted;
+    e.lat = place.lat;
+    e.lon = place.lon;
+    e.tel = place.tel;
+    e.hours = place.hoursInfo;
+    e.reservation = place.reservationInfo;
+    e.review = place.reviewInfo;
+    e.note = place.noteInfo;
+    
+    [self geocodeEntry:e andShowInMap:YES];
 }
 
 #pragma mark - load data

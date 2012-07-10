@@ -11,9 +11,11 @@
 #import <AddressBookUI/AddressBookUI.h>
 
 extern NSString *GeocodeFinishedNotification;
+extern NSString *GeocodeResultKeyResult;
 extern NSString *GeocodeResultKeyIdentifier;
 extern NSString *GeocodeResultKeyLat;
 extern NSString *GeocodeResultKeyLon;
+extern NSString *GeocodeResultKeyAddress;
 extern NSString *GeocodeResultKeyFormattedAddress;
 extern NSString *GeocodeResultKeyMessage;
 
@@ -29,5 +31,10 @@ extern NSString *GeocodeResultKeyMessage;
 @property (nonatomic, strong) NSString *message;
 
 - (id)initWithAddress:(NSString *)anAddress identifier:(NSString *)anIdentifier;
+- (void)geocode;
+- (void)completeOperationResult:(BOOL)isSuccess 
+                            lat:(NSNumber *)lat 
+                            lon:(NSNumber *)lon 
+               formattedAddress:(NSString *)formattedAddress;
 
 @end

@@ -11,10 +11,11 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "GData.h"
 #import "AppManager.h"
+#import "AppDelegate.h"
 
-@interface LocationsViewController : UITableViewController
+@interface LocationsViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 {
-    
+    AppDelegate *appDelegate;
 }
 
 @property (strong, nonatomic) GDataServiceGoogleSpreadsheet *spreadsheetService;
@@ -27,5 +28,7 @@
 @property (nonatomic, weak) AppManager *manager;
 @property (nonatomic, strong) NSArray *array;
 @property (nonatomic, strong) NSMutableDictionary *dict;
+
+@property (nonatomic, strong) NSFetchedResultsController *placeFRC;
 
 @end

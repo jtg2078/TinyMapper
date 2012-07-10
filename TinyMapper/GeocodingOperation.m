@@ -11,9 +11,11 @@
 
 
 NSString *GeocodeFinishedNotification = @"GeocodeFinishedNotification";
+NSString *GeocodeResultKeyResult = @"GeocodeResultKeyResult";
 NSString *GeocodeResultKeyIdentifier = @"GeocodeResultKeyIdentifier";
 NSString *GeocodeResultKeyLat = @"GeocodeResultKeyLat";
 NSString *GeocodeResultKeyLon = @"GeocodeResultKeyLon";
+NSString *GeocodeResultKeyAddress = @"GeocodeResultKeyAddress";
 NSString *GeocodeResultKeyFormattedAddress = @"GeocodeResultKeyFormattedAddress";
 NSString *GeocodeResultKeyMessage = @"GeocodeResultKeyMessage";
 
@@ -74,6 +76,7 @@ NSString *GeocodeResultKeyMessage = @"GeocodeResultKeyMessage";
 
 - (void)geocode 
 {
+    /*
     [self.geocoder geocodeAddressString:self.address completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if(placemarks == nil || placemarks.count == 0)
@@ -135,6 +138,7 @@ NSString *GeocodeResultKeyMessage = @"GeocodeResultKeyMessage";
                          formattedAddress:formattedAddress];
         }
     }];
+     */
 }
 
 - (void)completeOperationResult:(BOOL)isSuccess 
@@ -142,28 +146,31 @@ NSString *GeocodeResultKeyMessage = @"GeocodeResultKeyMessage";
                             lon:(NSNumber *)lon 
                formattedAddress:(NSString *)formattedAddress 
 {
-    if(formattedAddress.length == 0)
-        NSLog(@"wtf?");
-    
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [info setObject:[NSNumber numberWithBool:isSuccess] forKey:GeocodeResultKeyResult];
+    if(self.message)
+        [info setObject:self.message forKey:GeocodeResultKeyMessage];
+    if(self.address)
+        [info setObject:self.address forKey:GeocodeResultKeyAddress];
+    
     if(isSuccess)
     {
+        if(formattedAddress == nil)
+            formattedAddress = @"";
+        
         [info setObject:identifier forKey:GeocodeResultKeyIdentifier];
         [info setObject:lat forKey:GeocodeResultKeyLat];
         [info setObject:lon forKey:GeocodeResultKeyLon];
         [info setObject:formattedAddress forKey:GeocodeResultKeyFormattedAddress];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [center postNotificationName:GeocodeFinishedNotification 
-                                  object:nil 
-                                userInfo:info];
-        });
     }
-    else
-    {
-        [info setObject:self.message forKey:GeocodeResultKeyMessage];
-    }
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [center postNotificationName:GeocodeFinishedNotification 
+                              object:nil 
+                            userInfo:info];
+    });
     
     [self willChangeValueForKey:@"isFinished"];
     [self willChangeValueForKey:@"isExecuting"];
